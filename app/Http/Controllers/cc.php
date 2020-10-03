@@ -12,7 +12,12 @@ class cc extends Controller
     function recive(Request $request){
 
         $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
-        $update = $request->get('update_id');
+        $message = $request->get('message');
+        $message_id = $message->message_id;
+        $user = $message->from;
+        $user_id = $user->id;
+        $user_first_name = $user->first_name;
+        $text = $message->text;
 
         $response = $telegram->sendMessage([
             'chat_id' => '190861649',
@@ -21,7 +26,7 @@ class cc extends Controller
 
         $response = $telegram->sendMessage([
             'chat_id' => '190861649',
-            'text' => 'Hello ' . $update,
+            'text' => 'Hello ' . $text . $user_first_name . $user_id,
         ]);
 //        $result = $update['result'];
 //        $response = $telegram->sendMessage([
