@@ -21,7 +21,7 @@ class cc extends Controller
 
         $response = $telegram->sendMessage([
             'chat_id' => '190861649',
-            'text' => 'Hello ',
+            'text' => 'Hello ' . $message,
         ]);
 
         $response = $telegram->sendMessage([
