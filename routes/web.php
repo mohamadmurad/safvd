@@ -1,6 +1,6 @@
 <?php
 
-use http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Traits\Telegram;
 use Telegram\Bot\Api;
