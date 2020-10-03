@@ -1,0 +1,356 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use http\Exception;
+use Illuminate\Http\Request;
+
+class cc extends Controller
+{
+
+    function recive(Request $request){
+        $context = [
+
+            'http' => [
+
+                'method' => 'GET',
+
+                'header' => 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.47 Safari/537.36',
+
+            ],
+
+        ];
+
+
+        $botToken = '939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU';
+        $url = 'https://api.telegram.org/bot' . $botToken;
+        $update = file_get_contents("php://input");
+        $updateArray = json_decode($update, TRUE);
+        $update_id = $updateArray["update_id"];
+        $user_id = $updateArray["message"]["from"]["id"];
+        $first_name = $updateArray["message"]["from"]["first_name"];
+        $last_name = $updateArray["message"]["from"]["last_name"];
+        $username = $updateArray["message"]["from"]["username"];
+        $messageText = $updateArray["message"]["text"];
+        $recev_msg_id = $update["message"]["message_id"];
+
+        $sending_msg_id = '';
+        if (!empty($messageText)) {
+
+
+            if($messageText != "/start"){
+
+                if (!filter_var($messageText, FILTER_VALIDATE_URL)) {
+
+                    $this->sendMessage($user_id,"هذا البوت مخصص فقط لتحميل فديوهات الفيسبوك ولا يدعم الدردشة");
+
+                }else{
+                    $messageText = str_replace("m.","www.",$messageText);
+
+
+                    try {
+
+                        $context = stream_context_create($context);
+
+                        $data_from_msg = file_get_contents($messageText, false, $context);
+
+
+                        $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n <b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
+
+                        if ($hdLink = $this->getHDLink($data_from_msg)){
+
+                            set_time_limit(0);
+                            $vid_data = $this->file_get_contents_curl($hdLink);
+                            $vid_name = $update_id.".mp4";
+                            file_put_contents( "files/".$vid_name, $vid_data );
+
+                            $sending_msg_data = $this->sendMessage($user_id,"جارِ ارسال الفديو...");
+                            $sending_msg_data = json_decode($sending_msg_data,TRUE);
+                            $sending_msg_id = $sending_msg_data["result"]["message_id"];
+
+                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
+                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو.");
+                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
+                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو...");
+                            $this-> deleteMSG($user_id,$sending_msg_id);
+
+                            $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/'. config('app.PRODUCTS_FILES_PATH','files/'). $vid_name,  $vid_title,$recev_msg_id);
+
+
+
+                        }else  if ($sdLink = $this->getSDLink($data_from_msg)) {
+
+                            set_time_limit(0);
+                            $vid_data = $this->file_get_contents_curl($sdLink);
+                            $vid_name = $update_id.".mp4";
+                            file_put_contents( "saved/".$vid_name, $vid_data );
+
+                            $sending_msg_data = $this->sendMessage($user_id,"جارِ ارسال الفديو...");
+                            $sending_msg_data = json_decode($sending_msg_data,TRUE);
+                            $sending_msg_id = $sending_msg_data["result"]["message_id"];
+
+                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
+                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو.");
+                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
+                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو...");
+
+                            $this->deleteMSG($user_id,$sending_msg_id);
+
+                            $this->sendVido($user_id,"https://syad4.000webhostapp.com/FVD_SA_BOT/saved/". $vid_name,  $vid_title,$recev_msg_id);
+                            /*  $vid = new Video();
+                              $vid->create(array(
+                                  'id'  => NULL,
+                                  'name' => $vid_name,
+                                  'url' =>  $messageText,
+                                  'vid_title'=>    $vid_title,
+
+                              ));*/
+
+                        }else{
+
+                            $this->deleteMSG($user_id,$sending_msg_id);
+
+                            $this->sendMessage($user_id,"هذا العنوان غير صحيح");
+
+                        }
+
+
+
+
+                    }catch (Exception $e) {
+                        echo $e->getMessage();
+                    }
+
+                    // }
+
+
+                }
+
+            }else{
+
+                $this->sendMessage($user_id,"Welcome <b>". $first_name."</b> to My bot");
+            }
+
+        }else{
+            $this->sendMessage($user_id,"هذا البوت مخصص فقط لتحميل فديوهات الفيسبوك ولا يدعم الدردشة");
+        }
+    }
+    function file_get_contents_curl($url) {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        return $data;
+    }
+
+
+    function generateId($url)
+
+    {
+
+        $id = '';
+
+        if (is_int($url)) {
+
+            $id = $url;
+
+        } elseif (preg_match('#(\d+)/?$#', $url, $matches)) {
+
+            $id = $matches[1];
+
+        }
+
+
+
+        return $id;
+
+    }
+
+
+
+    function cleanStr($str)
+
+    {
+
+        return html_entity_decode(strip_tags($str), ENT_QUOTES, 'UTF-8');
+
+    }
+
+
+
+    function getSDLink($curl_content)
+
+    {
+
+        $regexRateLimit = '/sd_src_no_ratelimit:"([^"]+)"/';
+
+        $regexSrc = '/sd_src:"([^"]+)"/';
+
+
+
+        if (preg_match($regexRateLimit, $curl_content, $match)) {
+
+            return $match[1];
+
+        } elseif (preg_match($regexSrc, $curl_content, $match)) {
+
+            return $match[1];
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+
+
+
+    function getHDLink($curl_content)
+
+    {
+
+        $regexRateLimit = '/hd_src_no_ratelimit:"([^"]+)"/';
+
+        $regexSrc = '/hd_src:"([^"]+)"/';
+
+
+
+        if (preg_match($regexRateLimit, $curl_content, $match)) {
+
+            return $match[1];
+
+        } elseif (preg_match($regexSrc, $curl_content, $match)) {
+
+            return $match[1];
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+
+
+
+
+
+    function getTitle($curl_content)
+
+    {
+
+        $title = null;
+
+        if (preg_match('/h2 class="uiHeaderTitle"?[^>]+>(.+?)<\/h2>/', $curl_content, $matches)) {
+
+            $title = $matches[1];
+
+        } elseif (preg_match('/title id="pageTitle">(.+?)<\/title>/', $curl_content, $matches)) {
+
+            $title = $matches[1];
+
+        }
+
+
+
+        return cleanStr($title);
+
+    }
+
+
+
+    function getDescription($curl_content)
+
+    {
+
+        if (preg_match('/span class="hasCaption">(.+?)<\/span>/', $curl_content, $matches)) {
+
+            return cleanStr($matches[1]);
+
+        }
+
+
+
+        return false;
+
+    }
+
+
+
+    function sendVido($chat_id,$url,$caption,$msg_url){
+
+
+
+        $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendVideo?chat_id=".$chat_id . "&video=".$url . "&caption=".$caption
+            ."&parse_mode=html" . "&reply_to_message_id=" . $msg_url;
+
+
+
+        file_get_contents( $send_url);
+
+
+
+    }
+
+
+
+    function sendMessage($chat_id,$msg){
+
+
+
+        $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendMessage?chat_id=".$chat_id
+            . "&text=".urlencode($msg)."&parse_mode=html ";
+
+
+
+        $result =  file_get_contents( $send_url);
+
+
+
+        return $result;
+
+
+
+    }
+
+
+
+
+    function Edit_sending_MSG($chat_id,$msg_id,$txt){
+
+
+
+        $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/editMessageText?chat_id=".$chat_id .
+            "&message_id=" . $msg_id . "&parse_mode=HTML" . "&text=" . $txt;
+
+
+
+
+        $result =  file_get_contents( $send_url);
+
+
+
+
+
+
+
+    }
+
+    function deleteMSG($chat_id,$msg_id){
+
+
+
+        $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/deleteMessage?chat_id=".$chat_id . "&message_id=" . $msg_id . "&parse_mode=HTML";
+
+
+
+        $result =  file_get_contents( $send_url);
+
+    }
+}

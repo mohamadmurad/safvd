@@ -23,8 +23,11 @@ Route::get('/c', function () {
 });
 
 
-Route::post('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function () {
-    //$updates = Telegram::getWebhookUpdates();
+Route::post('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook',[\App\Http\Controllers\cc::class,'recive']);
+
+Route::get('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function () {
+  //  $updates = Telegram::getWebhookUpdates();
+    $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
     $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
 
     $response = $telegram->sendMessage([
@@ -34,12 +37,6 @@ Route::post('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function (
 
     $messageId = $response->getMessageId();
     return true;
-});
-
-Route::get('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function () {
-  //  $updates = Telegram::getWebhookUpdates();
-    $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
-
     $response = $telegram->sendMessage([
         'chat_id' => '190861649',
         'text' => 'Hello m'
