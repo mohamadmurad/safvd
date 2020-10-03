@@ -19,6 +19,10 @@ class cc extends Controller
         ]);
 
         $messageId = $response->getMessageId();
+        $response = $telegram->sendMessage([
+            'chat_id' => '190861649',
+            'text' => $messageId,
+        ]);
         return true;
 
     }

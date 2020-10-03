@@ -28,15 +28,7 @@ Route::post('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook',[\App\Http\
 Route::get('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function () {
   //  $updates = Telegram::getWebhookUpdates();
     $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
-    $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
 
-    $response = $telegram->sendMessage([
-        'chat_id' => '190861649',
-        'text' => 'Hello World mmmm'
-    ]);
-
-    $messageId = $response->getMessageId();
-    return true;
     $response = $telegram->sendMessage([
         'chat_id' => '190861649',
         'text' => 'Hello m'
