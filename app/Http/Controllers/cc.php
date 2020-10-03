@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use http\Exception;
 use Illuminate\Http\Request;
+use Telegram\Bot\Api;
 
 class cc extends Controller
 {
@@ -19,131 +20,7 @@ class cc extends Controller
 
         $messageId = $response->getMessageId();
         return true;
-        $context = [
 
-            'http' => [
-
-                'method' => 'GET',
-
-                'header' => 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.47 Safari/537.36',
-
-            ],
-
-        ];
-
-
-        $botToken = '939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU';
-        $url = 'https://api.telegram.org/bot' . $botToken;
-        $update = file_get_contents("php://input");
-        $updateArray = json_decode($update, TRUE);
-        $update_id = $updateArray["update_id"];
-        $user_id = $updateArray["message"]["from"]["id"];
-        $first_name = $updateArray["message"]["from"]["first_name"];
-        $last_name = $updateArray["message"]["from"]["last_name"];
-        $username = $updateArray["message"]["from"]["username"];
-        $messageText = $updateArray["message"]["text"];
-        $recev_msg_id = $update["message"]["message_id"];
-
-        $sending_msg_id = '';
-        if (!empty($messageText)) {
-
-
-            if($messageText != "/start"){
-
-                if (!filter_var($messageText, FILTER_VALIDATE_URL)) {
-
-                    $this->sendMessage($user_id,"هذا البوت مخصص فقط لتحميل فديوهات الفيسبوك ولا يدعم الدردشة");
-
-                }else{
-                    $messageText = str_replace("m.","www.",$messageText);
-
-
-                    try {
-
-                        $context = stream_context_create($context);
-
-                        $data_from_msg = file_get_contents($messageText, false, $context);
-
-
-                        $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n <b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
-
-                        if ($hdLink = $this->getHDLink($data_from_msg)){
-
-                            set_time_limit(0);
-                            $vid_data = $this->file_get_contents_curl($hdLink);
-                            $vid_name = $update_id.".mp4";
-                            file_put_contents( "files/".$vid_name, $vid_data );
-
-                            $sending_msg_data = $this->sendMessage($user_id,"جارِ ارسال الفديو...");
-                            $sending_msg_data = json_decode($sending_msg_data,TRUE);
-                            $sending_msg_id = $sending_msg_data["result"]["message_id"];
-
-                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
-                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو.");
-                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
-                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو...");
-                            $this-> deleteMSG($user_id,$sending_msg_id);
-
-                            $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/'. config('app.PRODUCTS_FILES_PATH','files/'). $vid_name,  $vid_title,$recev_msg_id);
-
-
-
-                        }else  if ($sdLink = $this->getSDLink($data_from_msg)) {
-
-                            set_time_limit(0);
-                            $vid_data = $this->file_get_contents_curl($sdLink);
-                            $vid_name = $update_id.".mp4";
-                            file_put_contents( "saved/".$vid_name, $vid_data );
-
-                            $sending_msg_data = $this->sendMessage($user_id,"جارِ ارسال الفديو...");
-                            $sending_msg_data = json_decode($sending_msg_data,TRUE);
-                            $sending_msg_id = $sending_msg_data["result"]["message_id"];
-
-                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
-                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو.");
-                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
-                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو...");
-
-                            $this->deleteMSG($user_id,$sending_msg_id);
-
-                            $this->sendVido($user_id,"https://syad4.000webhostapp.com/FVD_SA_BOT/saved/". $vid_name,  $vid_title,$recev_msg_id);
-                            /*  $vid = new Video();
-                              $vid->create(array(
-                                  'id'  => NULL,
-                                  'name' => $vid_name,
-                                  'url' =>  $messageText,
-                                  'vid_title'=>    $vid_title,
-
-                              ));*/
-
-                        }else{
-
-                            $this->deleteMSG($user_id,$sending_msg_id);
-
-                            $this->sendMessage($user_id,"هذا العنوان غير صحيح");
-
-                        }
-
-
-
-
-                    }catch (Exception $e) {
-                        echo $e->getMessage();
-                    }
-
-                    // }
-
-
-                }
-
-            }else{
-
-                $this->sendMessage($user_id,"Welcome <b>". $first_name."</b> to My bot");
-            }
-
-        }else{
-            $this->sendMessage($user_id,"هذا البوت مخصص فقط لتحميل فديوهات الفيسبوك ولا يدعم الدردشة");
-        }
     }
     function file_get_contents_curl($url) {
         $ch = curl_init();
