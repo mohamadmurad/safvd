@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/c', function () {
+    return 'dd';
+});
+
 
 Route::post('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function () {
     $updates = Telegram::getWebhookUpdates();
