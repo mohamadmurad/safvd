@@ -26,5 +26,5 @@ Route::get('/c', function () {
 Route::post('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function () {
     $updates = Telegram::getWebhookUpdates();
 
-    return $updates;
+    return true;
 });

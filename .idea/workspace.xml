@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52b0bfbc-f5c4-480e-bcbe-1aea24cae965" name="Default Changelist" comment="m" />
+    <list default="true" id="52b0bfbc-f5c4-480e-bcbe-1aea24cae965" name="Default Changelist" comment="m">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +35,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601710716955</updated>
-      <workItem from="1601710718002" duration="2731000" />
+      <workItem from="1601710718002" duration="3422000" />
     </task>
     <task id="LOCAL-00001" summary="m">
       <created>1601713891327</created>
@@ -42,7 +44,21 @@
       <option name="project" value="LOCAL" />
       <updated>1601713891327</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="m">
+      <created>1601714335129</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1601714335129</updated>
+    </task>
+    <task id="LOCAL-00003" summary="m">
+      <created>1601714374006</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1601714374006</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -53,6 +69,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="m" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="724" y="339" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601714228399">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state x="724" y="339" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.860@0.0.1440.860" timestamp="1601714228399" />
     <state x="500" y="184" key="FileChooserDialogImpl" timestamp="1601711287064">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
@@ -65,9 +85,9 @@
       <screen x="0" y="0" width="1440" height="860" />
     </state>
     <state x="492" y="134" key="Github.UntrackedFilesDialog/0.0.1440.860@0.0.1440.860" timestamp="1601711790557" />
-    <state x="312" y="162" key="Vcs.Push.Dialog.v2" timestamp="1601713896403">
+    <state x="312" y="162" key="Vcs.Push.Dialog.v2" timestamp="1601714375254">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="312" y="162" key="Vcs.Push.Dialog.v2/0.0.1440.860@0.0.1440.860" timestamp="1601713896403" />
+    <state x="312" y="162" key="Vcs.Push.Dialog.v2/0.0.1440.860@0.0.1440.860" timestamp="1601714375254" />
   </component>
 </project>
