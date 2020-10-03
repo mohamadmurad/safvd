@@ -17,37 +17,37 @@ class cc extends Controller
             'chat_id' => '190861649',
             'text' => 'Hello ',
         ]);
-        $result = $update['result'];
-        $response = $telegram->sendMessage([
-            'chat_id' => '190861649',
-            'text' => 'Hello ' . $result
-        ]);
-        $message = $result->message;
-
-        $response = $telegram->sendMessage([
-            'chat_id' => '190861649',
-            'text' => 'Hello ' . $message
-        ]);
-
-        $from = $result->from;
-        $user_id =  $from->id;
-        $first_name = $from->first_name;
+//        $result = $update['result'];
+//        $response = $telegram->sendMessage([
+//            'chat_id' => '190861649',
+//            'text' => 'Hello ' . $result
+//        ]);
+//        $message = $result->message;
+//
+//        $response = $telegram->sendMessage([
+//            'chat_id' => '190861649',
+//            'text' => 'Hello ' . $message
+//        ]);
+//
+//        $from = $result->from;
+//        $user_id =  $from->id;
+//        $first_name = $from->first_name;
 //        $user_id = $updateArray["message"]["from"]["id"];
 //        $first_name = $updateArray["message"]["from"]["first_name"];
 //        $last_name = $updateArray["message"]["from"]["last_name"];
 //        $username = $updateArray["message"]["from"]["username"];
 //        $messageText = $updateArray["message"]["text"];
 //        $recev_msg_id = $update["message"]["message_id"];
-        $response = $telegram->sendMessage([
-            'chat_id' => '190861649',
-            'text' => 'Hello ' . $first_name
-        ]);
-
-        $messageId = $response->getMessageId();
-        $response = $telegram->sendMessage([
-            'chat_id' => '190861649',
-            'text' => $user_id,
-        ]);
+//        $response = $telegram->sendMessage([
+//            'chat_id' => '190861649',
+//            'text' => 'Hello ' . $first_name
+//        ]);
+//
+//        $messageId = $response->getMessageId();
+//        $response = $telegram->sendMessage([
+//            'chat_id' => '190861649',
+//            'text' => $user_id,
+//        ]);
         return true;
 
     }
