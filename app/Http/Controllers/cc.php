@@ -13,7 +13,7 @@ class cc extends Controller
 
         $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
         $message = $request->json();
-        $message1 = $message['message'];
+        $message1 = $message->get('message');
        // $message_id = $message->message_id;
 //        $user = $message->from;
 //        $user_id = $user->id;
