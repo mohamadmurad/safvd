@@ -23,7 +23,7 @@ class cc extends Controller
 
         $response = $telegram->sendMessage([
             'chat_id' => '190861649',
-            'text' => 'Hello ' . $request . $json . var_dump($json),
+            'text' => 'Hello ' . $request . $json['update_id'] . var_dump($json),
         ]);
 
      /*   $response = $telegram->sendMessage([
