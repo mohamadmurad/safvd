@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52b0bfbc-f5c4-480e-bcbe-1aea24cae965" name="Default Changelist" comment="m">
-      <change afterPath="$PROJECT_DIR$/app/Traits/UploadAble.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/cc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/cc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/files/627253880.mp4" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +187,7 @@
       <workItem from="1601710718002" duration="5746000" />
       <workItem from="1601730089096" duration="418000" />
       <workItem from="1601731595132" duration="5318000" />
-      <workItem from="1601798290423" duration="5318000" />
+      <workItem from="1601798290423" duration="7320000" />
     </task>
     <task id="LOCAL-00001" summary="m">
       <created>1601713891327</created>
@@ -483,7 +483,21 @@
       <option name="project" value="LOCAL" />
       <updated>1601800178974</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="m">
+      <created>1601803667303</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1601803667303</updated>
+    </task>
+    <task id="LOCAL-00044" summary="m">
+      <created>1601803813746</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1601803813746</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,10 +520,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="m" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="724" y="339" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601714228399">
+    <state x="724" y="339" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601804878380">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="724" y="339" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.860@0.0.1440.860" timestamp="1601714228399" />
+    <state x="724" y="339" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.860@0.0.1440.860" timestamp="1601804878380" />
     <state x="450" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1601721041733">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
@@ -526,10 +540,10 @@
       <screen x="0" y="0" width="1440" height="860" />
     </state>
     <state x="492" y="134" key="Github.UntrackedFilesDialog/0.0.1440.860@0.0.1440.860" timestamp="1601711790557" />
-    <state x="312" y="162" key="Vcs.Push.Dialog.v2" timestamp="1601800184423">
+    <state x="312" y="162" key="Vcs.Push.Dialog.v2" timestamp="1601803814834">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="312" y="162" key="Vcs.Push.Dialog.v2/0.0.1440.860@0.0.1440.860" timestamp="1601800184423" />
+    <state x="312" y="162" key="Vcs.Push.Dialog.v2/0.0.1440.860@0.0.1440.860" timestamp="1601803814834" />
     <state x="376" y="195" key="run.anything.popup" timestamp="1601802093921">
       <screen x="0" y="0" width="1440" height="860" />
     </state>

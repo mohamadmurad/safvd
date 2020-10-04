@@ -60,7 +60,7 @@ class cc extends Controller
                             set_time_limit(0);
                             $vid_data = $this->file_get_contents_curl($hdLink);
                             $vid_name = $update_id.".mp4";
-                            file_put_contents( "files/".$vid_name, $vid_data );
+                           // file_put_contents( "files/".$vid_name, $vid_data );
 
                            /* $sending_msg_data = $this->sendMessage($user_id,"جارِ ارسال الفديو...");
                             $sending_msg_data = json_decode($sending_msg_data,TRUE);
@@ -90,8 +90,8 @@ class cc extends Controller
 
                             set_time_limit(0);
                             $vid_data = $this->file_get_contents_curl($sdLink);
-                            $vid_name = $update_id.".mp4";
-                            file_put_contents( "files/".$vid_name, $vid_data );
+                            $vid_name = $update_id.  rand() . ".mp4";
+                          //  file_put_contents( "files/".$vid_name, $vid_data );
 
 
                            /* $sending_msg_data = $this->sendMessage($user_id,"جارِ ارسال الفديو...");
@@ -114,18 +114,18 @@ class cc extends Controller
                                   'vid_title'=>    $vid_title,
 
                               ));*/
-                            $response = $telegram->sendMessage([
+                           /* $response = $telegram->sendMessage([
                                 'chat_id' => $user_id,
-                                'text' => $request->getSchemeAndHttpHost() . '/'. 'files/'. $vid_name,
+                                'text' => "sending",
                                 'parse_mode' => 'HTML',
-                            ]);
+                            ]);*/
 
-                            $response = $telegram->sendVideo([
+                          /*  $response = $telegram->sendVideo([
                                 'chat_id' => $user_id,
                                 'video' => '/'. 'files/'. $vid_name,
                                 'caption' => $vid_title,
                                 'parse_mode' => 'HTML',
-                            ]);
+                            ]);*/
 
                         }else{
 
