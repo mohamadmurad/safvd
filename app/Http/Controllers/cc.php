@@ -33,7 +33,11 @@ class cc extends Controller
         $user_id = $from['id'];
         $user_first_name = $from['first_name'];
         $text = $message['text'];
-
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => $request->all(),
+            'parse_mode' => 'HTML',
+        ]);
 
         $messageToSend = "Hello <b>" . $user_first_name . '</b> we are coming soon';
         if (!empty($text)) {
