@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use http\Exception;
 use Illuminate\Http\Request;
 use Telegram\Bot\Api;
+use Telegram\Bot\FileUpload\InputFile;
 
 class cc extends Controller
 {
@@ -26,20 +27,226 @@ class cc extends Controller
     {
 
         $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
-       /* $data = $request->all();
+        $data = $request->all();
         $update_id = $data['update_id'];
         $message = $data['message'];
         $from = $message['from'];
         $user_id = $from['id'];
         $user_first_name = $from['first_name'];
-        $text = $message['text'];*/
+        $text = $message['text'];
+
+       // $d = InputFile::create('http://localhost:8000/files/627253900118396583.mp4','627253900118396583.mp4');
+        //dd($d);
+
+            $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendVideo?chat_id=" . $user_id . "&video=http://localhost:8000/files/627253900118396583.mp4&parse_mode=html";
+
+
+            file_get_contents($send_url);
+
+
+
+      /*  $response = $telegram->sendVideo([
+            'chat_id' => $user_id,
+            'video' => new InputFile('http://localhost:8000/files/627253900118396583.mp4'),
+            'caption' => 'jlh',
+            'parse_mode' => 'HTML',
+        ]);*/
+        $messageToSend = "Hello <b>" . $user_first_name . '</b> we are coming soon';
+        if (!empty($text)) {
+            if ($text !== "/start") {
+                if (!filter_var($text, FILTER_VALIDATE_URL)) {
+
+                    $response = $telegram->sendMessage([
+                        'chat_id' => $user_id,
+                        'text' => 'هذا البوت مخصص لتحميل فديوهات الفيسبوك فقط ولا يدعم الدردشة',
+                        'parse_mode' => 'HTML',
+                    ]);
+
+                } else {
+                    $messageText = str_replace("m.", "www.", $text);
+
+                    try {
+
+                        $context = stream_context_create($this->context);
+                        $data_from_msg = file_get_contents($messageText, false, $context);
+
+
+                        $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n <b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
+
+                        if ($hdLink = $this->getHDLink($data_from_msg)){
+
+
+
+                            set_time_limit(0);
+                            $vid_data = $this->file_get_contents_curl($hdLink);
+                            $vid_name = $update_id.".mp4";
+                           // file_put_contents( "files/".$vid_name, $vid_data );
+
+                           /* $sending_msg_data = $this->sendMessage($user_id,"جارِ ارسال الفديو...");
+                            $sending_msg_data = json_decode($sending_msg_data,TRUE);
+                            $sending_msg_id = $sending_msg_data["result"]["message_id"];
+
+                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
+                            $this->Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو.");
+                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو..");
+                            $this-> Edit_sending_MSG($user_id,$sending_msg_id,"جارِ ارسال الفديو...");
+                            $this-> deleteMSG($user_id,$sending_msg_id);*/
+
+
+                            $response = $telegram->sendVideo([
+                                'chat_id' => $user_id,
+                                'video' => $request->getSchemeAndHttpHost() . '/'. config('app.PRODUCTS_FILES_PATH','files/'). $vid_name,
+                                'caption' => $vid_title,
+                                'parse_mode' => 'HTML',
+                            ]);
+
+
+
+                            //$this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/'. config('app.PRODUCTS_FILES_PATH','files/'). $vid_name,  $vid_title,$recev_msg_id);
+
+
+
+                        }else  if ($sdLink = $this->getSDLink($data_from_msg)) {
+
+                            set_time_limit(0);
+
+                            $response = $telegram->sendMessage([
+                                'chat_id' => $user_id,
+                                'text' => 'جارِ ارسال الفديو...',
+                                'parse_mode' => 'HTML',
+                            ]);
+
+
+                            $response = $telegram->editMessageText([
+                                'chat_id' => $user_id,
+                                'message_id' => $response->getMessageId(),
+                                'text' => 'جارِ ارسال الفديو..',
+                                'parse_mode' => 'HTML',
+                            ]);
+
+                            $response = $telegram->editMessageText([
+                                'chat_id' => $user_id,
+                                'message_id' => $response->getMessageId(),
+                                'text' => 'جارِ ارسال الفديو.',
+                                'parse_mode' => 'HTML',
+                            ]);
+
+                            $response = $telegram->editMessageText([
+                                'chat_id' => $user_id,
+                                'message_id' => $response->getMessageId(),
+                                'text' => 'جارِ ارسال الفديو',
+                                'parse_mode' => 'HTML',
+                            ]);
+
+
+                            $response = $telegram->editMessageText([
+                                'chat_id' => $user_id,
+                                'message_id' => $response->getMessageId(),
+                                'text' => 'جارِ ارسال الفديو...',
+                                'parse_mode' => 'HTML',
+                            ]);
+
+
+                            $response = $telegram->editMessageText([
+                                'chat_id' => $user_id,
+                                'message_id' => $response->getMessageId(),
+                                'text' => 'جارِ ارسال الفديو..',
+                                'parse_mode' => 'HTML',
+                            ]);
+
+                            $response = $telegram->editMessageText([
+                                'chat_id' => $user_id,
+                                'message_id' => $response->getMessageId(),
+                                'text' => 'جارِ ارسال الفديو.',
+                                'parse_mode' => 'HTML',
+                            ]);
+
+                            $response = $telegram->editMessageText([
+                                'chat_id' => $user_id,
+                                'message_id' => $response->getMessageId(),
+                                'text' => 'جارِ ارسال الفديو',
+                                'parse_mode' => 'HTML',
+                            ]);
+
+                            $vid_data = $this->file_get_contents_curl($sdLink);
+                            $vid_name = $update_id.  rand() . ".mp4";
+
+
+                            file_put_contents( "files/".$vid_name, $vid_data );
+
+                           // dd($request->getSchemeAndHttpHost() . '/files/'. $vid_name);
+                            $response = $telegram->deleteMessage([
+                                'chat_id' => $user_id,
+                                'message_id' => $response->getMessageId(),
+                            ]);
+
+
+                            /*$response = $telegram->sendVideo([
+                                'chat_id' => $user_id,
+                                'video' => $request->getSchemeAndHttpHost() . '/files/'. $vid_name,
+                                'caption' => $vid_title,
+                                'parse_mode' => 'HTML',
+                            ]);*/
+
+                         //   $this->sendVido($user_id,"https://syad4.000webhostapp.com/FVD_SA_BOT/saved/". $vid_name,  $vid_title,$recev_msg_id);
+                            /*  $vid = new Video();
+                              $vid->create(array(
+                                  'id'  => NULL,
+                                  'name' => $vid_name,
+                                  'url' =>  $messageText,
+                                  'vid_title'=>    $vid_title,
+
+                              ));*/
+                           /* $response = $telegram->sendMessage([
+                                'chat_id' => $user_id,
+                                'text' => "sending",
+                                'parse_mode' => 'HTML',
+                            ]);*/
+
+                          /*  $response = $telegram->sendVideo([
+                                'chat_id' => $user_id,
+                                'video' => '/'. 'files/'. $vid_name,
+                                'caption' => $vid_title,
+                                'parse_mode' => 'HTML',
+                            ]);*/
+
+                        }else{
+
+                            //$this->deleteMSG($user_id,$sending_msg_id);
+
+                            $this->sendMessage($user_id,"هذا العنوان غير صحيح");
+
+                        }
+
+                    } catch (Exception $e) {
+                        echo $e->getMessage();
+                    }
+
+
+                }
+
+            } else {
+
+                $response = $telegram->sendMessage([
+                    'chat_id' => $user_id,
+                    'text' => 'اهلا ' . $user_first_name . 'بك في بوت مدمن سوري لتحميل فديوهات فيسبوك',
+                    'parse_mode' => 'HTML',
+                ]);
+
+            }
+        } else {
+            $response = $telegram->sendMessage([
+                'chat_id' => $user_id,
+                'text' => 'هذا البوت مخصص لتحميل فديوهات الفيسبوك فقط ولا يدعم الدردشة',
+                'parse_mode' => 'HTML',
+            ]);
+        }
+
         $response = $telegram->sendMessage([
-            'chat_id' => '190861649',
-            'text' => $request->all(),
+            'chat_id' => $user_id,
+            'text' => $messageToSend,
             'parse_mode' => 'HTML',
         ]);
-
-
 
         return true;
 
