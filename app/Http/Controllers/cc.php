@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use http\Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Telegram\Bot\Api;
 use Telegram\Bot\FileUpload\InputFile;
@@ -140,6 +141,7 @@ class cc extends Controller
                                 'message_id' => $response->getMessageId(),
                             ]);
 
+
                             $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
 
                             $response = $telegram->sendMessage([
@@ -147,7 +149,7 @@ class cc extends Controller
                                 'text' => 'We are back to work now',
                                 'parse_mode' => 'HTML',
                             ]);
-                            Storage::delete("files/".$vid_name);
+                            File::delete(public_path("files/".$vid_name));
 
 
                         }else  if ($sdLink = $this->getSDLink($data_from_msg)) {
@@ -230,7 +232,7 @@ class cc extends Controller
                                 'text' => 'We are back to work now',
                                 'parse_mode' => 'HTML',
                             ]);
-                            Storage::delete("files/".$vid_name);
+                            File::delete(public_path("files/".$vid_name));
 
                         }else{
                             $this->sendMessage($user_id,"هذا العنوان غير صحيح");
