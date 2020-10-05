@@ -34,23 +34,11 @@ class cc extends Controller
         $user_id = $from['id'];
         $user_first_name = $from['first_name'];
         $text = $message['text'];
-
-       // $d = InputFile::create('http://localhost:8000/files/627253900118396583.mp4','627253900118396583.mp4');
-        //dd($d);
-
-            $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendVideo?chat_id=" . $user_id . "&video=http://safvd.herokuapp.com/files/627253900118396583.mp4&parse_mode=html";
-
-
-            file_get_contents($send_url);
+        $recev_msg_id =$message['message_id'];
 
 
 
-      /*  $response = $telegram->sendVideo([
-            'chat_id' => $user_id,
-            'video' => new InputFile('http://localhost:8000/files/627253900118396583.mp4'),
-            'caption' => 'jlh',
-            'parse_mode' => 'HTML',
-        ]);*/
+
         $messageToSend = "Hello <b>" . $user_first_name . '</b> we are coming soon';
         if (!empty($text)) {
             if ($text !== "/start") {
@@ -188,7 +176,12 @@ class cc extends Controller
                                 'parse_mode' => 'HTML',
                             ]);*/
 
-                         //   $this->sendVido($user_id,"https://syad4.000webhostapp.com/FVD_SA_BOT/saved/". $vid_name,  $vid_title,$recev_msg_id);
+                            $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
+                            $response = $telegram->sendMessage([
+                                'chat_id' => $user_id,
+                                'text' => 'We are back to work now',
+                                'parse_mode' => 'HTML',
+                            ]);
                             /*  $vid = new Video();
                               $vid->create(array(
                                   'id'  => NULL,
