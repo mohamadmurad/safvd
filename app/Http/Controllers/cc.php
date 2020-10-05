@@ -234,7 +234,7 @@ class cc extends Controller
                                 'text' => 'We are back to work now',
                                 'parse_mode' => 'HTML',
                             ]);
-                            //File::delete(public_path("files/".$vid_name));
+                            File::delete(public_path("files/".$vid_name));
 
                         }else{
                             $this->sendMessage($user_id,"هذا العنوان غير صحيح");
