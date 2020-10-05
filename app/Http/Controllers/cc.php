@@ -38,7 +38,7 @@ class cc extends Controller
        // $d = InputFile::create('http://localhost:8000/files/627253900118396583.mp4','627253900118396583.mp4');
         //dd($d);
 
-            $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendVideo?chat_id=" . $user_id . "&video=http://localhost:8000/files/627253900118396583.mp4&parse_mode=html";
+            $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendVideo?chat_id=" . $user_id . "&video=http://safvd.herokuapp.com/files/627253900118396583.mp4&parse_mode=html";
 
 
             file_get_contents($send_url);
