@@ -130,11 +130,11 @@ class cc extends Controller
 
 
 
-                            $vid_data = $this->file_get_contents_curl($hdLink);
+                           // $vid_data = $this->file_get_contents_curl($hdLink);
                             $vid_name = $update_id.  rand() . ".mp4";
 
 
-                            file_put_contents( "files/".$vid_name, $vid_data );
+                           // file_put_contents( "files/".$vid_name, $vid_data );
 
                             $response = $telegram->deleteMessage([
                                 'chat_id' => $user_id,
@@ -142,15 +142,15 @@ class cc extends Controller
                             ]);
 
 
-                            $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
+                            //$this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
 
 
                             $response = $telegram->sendMessage([
                                 'chat_id' => $user_id,
-                                'text' => 'We are back to work now',
+                                'text' => 'We are back to work soon',
                                 'parse_mode' => 'HTML',
                             ]);
-                            File::delete(public_path("files/".$vid_name));
+                            //File::delete(public_path("files/".$vid_name));
 
 
                         }else  if ($sdLink = $this->getSDLink($data_from_msg)) {
@@ -215,11 +215,11 @@ class cc extends Controller
                                 'parse_mode' => 'HTML',
                             ]);
 
-                            $vid_data = $this->file_get_contents_curl($sdLink);
+                           // $vid_data = $this->file_get_contents_curl($sdLink);
                             $vid_name = $update_id.  rand() . ".mp4";
 
 
-                            file_put_contents( "files/".$vid_name, $vid_data );
+                           // file_put_contents( "files/".$vid_name, $vid_data );
 
 
                             $response = $telegram->deleteMessage([
@@ -227,14 +227,14 @@ class cc extends Controller
                                 'message_id' => $response->getMessageId(),
                             ]);
 
-                            $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
+                         //   $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
 
                             $response = $telegram->sendMessage([
                                 'chat_id' => $user_id,
-                                'text' => 'We are back to work now',
+                                'text' => 'We are back to work soon',
                                 'parse_mode' => 'HTML',
                             ]);
-                            File::delete(public_path("files/".$vid_name));
+                           // File::delete(public_path("files/".$vid_name));
 
                         }else{
                             $this->sendMessage($user_id,"هذا العنوان غير صحيح");
