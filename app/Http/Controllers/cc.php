@@ -157,6 +157,10 @@ class cc extends Controller
                         }else  if ($sdLink = $this->getSDLink($data_from_msg)) {
 
                             set_time_limit(0);
+                            $vid_data = $this->file_get_contents_curl($sdLink);
+                            $vid_name = $update_id.  rand() . ".mp4";
+
+                            file_put_contents( "files/".$vid_name, $vid_data );
 
                             $response = $telegram->sendMessage([
                                 'chat_id' => $user_id,
@@ -216,11 +220,10 @@ class cc extends Controller
                                 'parse_mode' => 'HTML',
                             ]);
 
-                            $vid_data = $this->file_get_contents_curl($sdLink);
-                            $vid_name = $update_id.  rand() . ".mp4";
 
 
-                            file_put_contents( "files/".$vid_name, $vid_data );
+
+
 
 
                             $response = $telegram->deleteMessage([
