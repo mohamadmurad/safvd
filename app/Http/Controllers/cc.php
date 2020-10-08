@@ -35,6 +35,7 @@ class cc extends Controller
         $from = $message['from'];
         $user_id = $from['id'];
         $user_first_name = $from['first_name'];
+        $user_last_name = $from['last_name'];
         $text = $message['text'];
         $recev_msg_id =$message['message_id'];
 
