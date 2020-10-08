@@ -65,10 +65,10 @@ class cc extends Controller
                         $data_from_msg = file_get_contents($messageText, false, $context);
 
 
-                        $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n <b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
 
                         if ($hdLink = $this->getHDLink($data_from_msg)){
 
+                            $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>HD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
 
 
                             set_time_limit(0);
@@ -164,6 +164,8 @@ class cc extends Controller
                             set_time_limit(0);
                             $vid_data = $this->file_get_contents_curl($sdLink);
                             $vid_name = $update_id.  rand() . ".mp4";
+
+                            $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>SD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
 
 
                             //dd($path);
