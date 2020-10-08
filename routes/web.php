@@ -26,6 +26,7 @@ Route::get('/c', function () {
 
 Route::post('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook',[\App\Http\Controllers\cc::class,'recive']);
 Route::post('/sendToAll',[\App\Http\Controllers\cc::class,'sendToAll']);
+
 Route::get('/getAll',[\App\Http\Controllers\cc::class,'getAll']);
 
 Route::get('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function (Request $request) {
