@@ -160,8 +160,13 @@ class cc extends Controller
                             //$vid_data = $this->file_get_contents_curl($sdLink);
                             $vid_name = $update_id.  rand() . ".mp4";
 
-                            $path = public_path('upload');
-                            dd($path);
+                            $path = public_path('files');
+                            if(!File::isDirectory($path)){
+                                dd('dsd');
+                                File::makeDirectory($path, 0777, true, true);
+
+                            }
+                            //dd($path);
                             //file_put_contents( "files/".$vid_name, $vid_data );
 
                             $response = $telegram->sendMessage([
