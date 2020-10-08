@@ -39,6 +39,14 @@ class cc extends Controller
         }
 
     }
+
+
+    function getAll(Request $request){
+
+        $users = User::all();
+       return response()->json($users);
+
+    }
     function recive(Request $request)
     {
 
