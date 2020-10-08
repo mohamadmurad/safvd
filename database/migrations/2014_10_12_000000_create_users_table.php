@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('username');
             $table->string('language_code');
-            $table->string('user_id');
+            $table->bigInteger('user_id');
             $table->timestamps();
         });
     }

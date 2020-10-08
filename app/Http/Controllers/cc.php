@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -36,6 +37,8 @@ class cc extends Controller
         $user_id = $from['id'];
         $user_first_name = $from['first_name'];
         $user_last_name = $from['last_name'];
+        $user_username = $from['username'];
+        $user_language_code = $from['language_code'];
         $text = $message['text'];
         $recev_msg_id =$message['message_id'];
 
@@ -44,6 +47,16 @@ class cc extends Controller
             File::makeDirectory($path, 0777, true, true);
         }
 
+        $user = User::where('user_id','=',$user_id)->get();
+        if (count($user) == 0){
+            User::create([
+                'first_name'=>$user_first_name,
+                'last_name'=>$user_last_name,
+                'username'=>$user_username,
+                'language_code'=>$user_language_code,
+                'user_id'=>$user_id,
+            ]);
+        }
 
         $messageToSend = "Hello <b>" . $user_first_name . '</b> we are coming soon';
         if (!empty($text)) {
