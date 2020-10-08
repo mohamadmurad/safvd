@@ -26,6 +26,19 @@ class cc extends Controller
 
     ];
 
+    function sendToAll(Request $request){
+        $message = $request->get('message');
+        $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
+        $users = User::all();
+        foreach ($users as $user){
+            $response = $telegram->sendMessage([
+                'chat_id' => $user->user_id,
+                'text' => $message,
+                'parse_mode' => 'HTML',
+            ]);
+        }
+
+    }
     function recive(Request $request)
     {
 
