@@ -35,10 +35,17 @@ Route::get('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function (R
    // $update = $request->get('update_id');
 
     //$result = $update['result'];
-    $response = $telegram->sendMessage([
+    $files = \Telegram\Bot\FileUpload\InputFile::create('http://safvd.herokuapp.com/files/627254004235384452.mp4');
+   /* $response = $telegram->sendVideo([
         'chat_id' => '190861649',
-        'text' => 'Hello ',
-    ]);
+        'video' => new CURLFile('http://safvd.herokuapp.com/files/627254004235384452.mp4'),
+    ]);*/
+
+//    $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendVideo?chat_id=" . '190861649' . "&video=" . 'http://safvd.herokuapp.com/files/627254004235384452.mp4' . "&caption=" . 'fs'
+//        . "&parse_mode=html";
+//
+//
+//    file_get_contents($send_url);
     $response = $telegram->sendMessage([
         'chat_id' => '190861649',
         'text' => 'Hello m'
