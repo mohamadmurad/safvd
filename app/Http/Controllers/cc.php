@@ -27,7 +27,8 @@ class cc extends Controller
     ];
 
     function sendToAll(Request $request){
-        $message = $request->get('message');
+        $message = "<b>هذه الرسالة من مطور البوت</b> \n\n\n";
+        $message .= $request->get('message');
         $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
         $users = User::all();
         foreach ($users as $user){
