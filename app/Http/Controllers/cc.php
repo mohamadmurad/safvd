@@ -6,13 +6,11 @@ use App\Models\User;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Telegram\Bot\Api;
-use Telegram\Bot\FileUpload\InputFile;
+
 
 class cc extends Controller
 {
-
 
     private $context = [
 
@@ -41,13 +39,13 @@ class cc extends Controller
 
     }
 
-
     function getAll(Request $request){
 
         $users = User::all();
        return response()->json($users);
 
     }
+
     function recive(Request $request)
     {
 
@@ -58,10 +56,15 @@ class cc extends Controller
         $from = $message['from'];
         $user_id = $from['id'];
         $user_first_name = $from['first_name'];
-        $user_last_name = $from['last_name'];
-        $user_username = $from['username'];
+        //$user_last_name = $from['last_name'];
+       // $user_username = $from['username'];
         $user_language_code = $from['language_code'];
         $text = $message['text'];
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => $text,
+            'parse_mode' => 'HTML',
+        ]);
         $recev_msg_id =$message['message_id'];
 
         $path = public_path('files');
@@ -93,7 +96,7 @@ class cc extends Controller
 
                 } else {
                     $messageText = str_replace("m.", "www.", $text);
-                    $messageText = str_replace("m.", "ar-ar.", $text);
+                    $messageText = str_replace("m.", "ar-ar.", $messageText);
 
                     try {
 
@@ -337,7 +340,6 @@ class cc extends Controller
         return $data;
     }
 
-
     function generateId($url)
 
     {
@@ -359,7 +361,6 @@ class cc extends Controller
 
     }
 
-
     function cleanStr($str)
 
     {
@@ -367,7 +368,6 @@ class cc extends Controller
         return html_entity_decode(strip_tags($str), ENT_QUOTES, 'UTF-8');
 
     }
-
 
     function getSDLink($curl_content)
 
@@ -394,7 +394,6 @@ class cc extends Controller
 
     }
 
-
     function getHDLink($curl_content)
 
     {
@@ -420,7 +419,6 @@ class cc extends Controller
 
     }
 
-
     function getTitle($curl_content)
 
     {
@@ -442,7 +440,6 @@ class cc extends Controller
 
     }
 
-
     function getDescription($curl_content)
 
     {
@@ -458,7 +455,6 @@ class cc extends Controller
 
     }
 
-
     function sendVido($chat_id, $url, $caption, $msg_url)
     {
 
@@ -471,7 +467,6 @@ class cc extends Controller
 
 
     }
-
 
     function sendMessage($chat_id, $msg)
     {
@@ -488,7 +483,6 @@ class cc extends Controller
 
 
     }
-
 
     function Edit_sending_MSG($chat_id, $msg_id, $txt)
     {
@@ -513,4 +507,5 @@ class cc extends Controller
         $result = file_get_contents($send_url);
 
     }
+
 }
