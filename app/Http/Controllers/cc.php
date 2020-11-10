@@ -55,7 +55,7 @@ class cc extends Controller
         $message = $data['message'];
         $from = $message['from'];
         $user_id = $from['id'];
-        $user_first_name = $from['first_name'];
+        $user_first_name = isset($from['first_name']) ? $from['first_name'] : '';
         //$user_last_name = $from['last_name'];
        // $user_username = $from['username'];
         $user_language_code = $from['language_code'];
@@ -103,7 +103,8 @@ class cc extends Controller
 
                         if ($hdLink = $this->getHDLink($data_from_msg)){
 
-                            $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>HD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
+                            $vid_title = urlencode($this->getTitle($data_from_msg) .
+                                "\n\n<b>HD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
 
 
                             set_time_limit(0);
