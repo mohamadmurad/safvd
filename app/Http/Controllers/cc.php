@@ -60,11 +60,7 @@ class cc extends Controller
        // $user_username = $from['username'];
         $user_language_code = $from['language_code'];
         $text = $message['text'];
-        $response = $telegram->sendMessage([
-            'chat_id' => $user_id,
-            'text' => $text,
-            'parse_mode' => 'HTML',
-        ]);
+
         $recev_msg_id =$message['message_id'];
 
         $path = public_path('files');
