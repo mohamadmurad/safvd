@@ -69,7 +69,7 @@ class cc extends Controller
             File::makeDirectory($path, 0777, true, true);
         }
 
-        $user = User::where('user_id','=',$user_id)->get();
+      /*  $user = User::where('user_id','=',$user_id)->get();
         if (count($user) == 0){
             User::create([
                 'first_name'=>$user_first_name,
@@ -78,7 +78,7 @@ class cc extends Controller
                 'language_code'=>$user_language_code,
                 'user_id'=>$user_id,
             ]);
-        }
+        }*/
 
         $messageToSend = "Hello <b>" . $user_first_name . '</b> we are coming soon';
         if (!empty($text)) {
