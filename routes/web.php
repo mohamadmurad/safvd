@@ -36,22 +36,19 @@ Route::get('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function (R
 
     //$result = $update['result'];
     dump('dsdsssssssss');
-    $ch = curl_init();
 
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_URL, 'https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4');
+   // $image = file_get_contents("https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4");
 
-    $data = curl_exec($ch);
-    dump($data);
-    curl_close($ch);
 
-    $files = \Telegram\Bot\FileUpload\InputFile::createFromContents($data);
-    dump($files);
-    $response = $telegram->sendVideo([
-        'chat_id' => '190861649',
-        'video' => $files,
-    ]);
+  //  file_put_contents("files/1.mp4",$image);
+
+
+   // $files = \Telegram\Bot\FileUpload\InputFile::create("/files/1.mp4");
+
+//    $response = $telegram->sendVideo([
+//        'chat_id' => '190861649',
+//        'video' => $files,
+//    ]);
 
 //    $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendVideo?chat_id=" . '190861649' . "&video=" . 'https://raw.githubusercontent.com/TelegramBots/book/master/src/docs/video-countdown.mp4' . "&caption=" . 'fs'
 //        . "&parse_mode=html&supports_streaming=true";
