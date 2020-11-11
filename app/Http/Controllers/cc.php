@@ -115,182 +115,26 @@ class cc extends Controller
 
 
                             set_time_limit(0);
-
+                            $before = memory_get_usage();
                             $vid_data = $this->file_get_contents_curl($hdLink);
-                            $vid_name = $update_id.  rand() . ".mp4";
-                            file_put_contents( "files/".$vid_name, $vid_data );
+                            $after = memory_get_usage();
 
-                            $response = $telegram->sendMessage([
-                                'chat_id' => $user_id,
-                                'text' => 'جارِ ارسال الفديو...',
-                                'parse_mode' => 'HTML',
-                            ]);
+                            $tot = $after- $before;
+                            if($tot > 5242880){
+                                $sdLink = $this->getSDLink($data_from_msg);
+                                $this->sendSD($update_id , $sdLink , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id);
+                            }else{
 
+                                $this->sendHD($update_id ,$vid_data , $telegram ,$user_id ,$request ,$vid_title , $recev_msg_id );
 
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو..',
-                                'parse_mode' => 'HTML',
-                            ]);
+                            }
 
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو.',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو...',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو..',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو.',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-
-
-
-
-
-
-
-                            $response = $telegram->deleteMessage([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                            ]);
-
-
-                            $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
-
-
-                            $response = $telegram->sendMessage([
-                                'chat_id' => $user_id,
-                                'text' => 'We are back to work now',
-                                'parse_mode' => 'HTML',
-                            ]);
-                            File::delete(public_path("files/".$vid_name));
 
 
                         }else  if ($sdLink = $this->getSDLink($data_from_msg)) {
 
-                            set_time_limit(0);
-                            $vid_data = $this->file_get_contents_curl($sdLink);
-                            $vid_name = $update_id.  rand() . ".mp4";
+                            $this->sendSD($update_id , $sdLink , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id);
 
-                            $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>SD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
-
-
-                            //dd($path);
-                            file_put_contents( "files/".$vid_name, $vid_data );
-
-                            $response = $telegram->sendMessage([
-                                'chat_id' => $user_id,
-                                'text' => 'جارِ ارسال الفديو...',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو..',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو.',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو...',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو..',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو.',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-                            $response = $telegram->editMessageText([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                                'text' => 'جارِ ارسال الفديو',
-                                'parse_mode' => 'HTML',
-                            ]);
-
-
-
-
-
-
-
-                            $response = $telegram->deleteMessage([
-                                'chat_id' => $user_id,
-                                'message_id' => $response->getMessageId(),
-                            ]);
-
-                            $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
-
-                            $response = $telegram->sendMessage([
-                                'chat_id' => $user_id,
-                                'text' => 'We are back to work now',
-                                'parse_mode' => 'HTML',
-                            ]);
-                            File::delete(public_path("files/".$vid_name));
 
                         }else{
                             $this->sendMessage($user_id,"هذا العنوان غير صحيح");
@@ -330,6 +174,181 @@ class cc extends Controller
 
     }
 
+    function sendSD($update_id , $sdLink , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id){
+        set_time_limit(0);
+        $vid_data = $this->file_get_contents_curl($sdLink);
+        $vid_name = $update_id.  rand() . ".mp4";
+
+        $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>SD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
+
+
+        //dd($path);
+        file_put_contents( "files/".$vid_name, $vid_data );
+
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => 'جارِ ارسال الفديو...',
+            'parse_mode' => 'HTML',
+        ]);
+
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو..',
+            'parse_mode' => 'HTML',
+        ]);
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو.',
+            'parse_mode' => 'HTML',
+        ]);
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو',
+            'parse_mode' => 'HTML',
+        ]);
+
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو...',
+            'parse_mode' => 'HTML',
+        ]);
+
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو..',
+            'parse_mode' => 'HTML',
+        ]);
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو.',
+            'parse_mode' => 'HTML',
+        ]);
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو',
+            'parse_mode' => 'HTML',
+        ]);
+
+
+
+
+
+
+
+        $response = $telegram->deleteMessage([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+        ]);
+
+        $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
+
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => 'We are back to work now',
+            'parse_mode' => 'HTML',
+        ]);
+        File::delete(public_path("files/".$vid_name));
+    }
+
+    function sendHD($update_id ,$vid_data , $telegram ,$user_id ,$request ,$vid_title , $recev_msg_id ){
+        $vid_name = $update_id.  rand() . ".mp4";
+        file_put_contents( "files/".$vid_name, $vid_data );
+
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => 'جارِ ارسال الفديو...',
+            'parse_mode' => 'HTML',
+        ]);
+
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو..',
+            'parse_mode' => 'HTML',
+        ]);
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو.',
+            'parse_mode' => 'HTML',
+        ]);
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو',
+            'parse_mode' => 'HTML',
+        ]);
+
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو...',
+            'parse_mode' => 'HTML',
+        ]);
+
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو..',
+            'parse_mode' => 'HTML',
+        ]);
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو.',
+            'parse_mode' => 'HTML',
+        ]);
+
+        $response = $telegram->editMessageText([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+            'text' => 'جارِ ارسال الفديو',
+            'parse_mode' => 'HTML',
+        ]);
+
+
+
+
+
+
+
+
+        $response = $telegram->deleteMessage([
+            'chat_id' => $user_id,
+            'message_id' => $response->getMessageId(),
+        ]);
+
+
+        $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
+
+
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => 'We are back to work now',
+            'parse_mode' => 'HTML',
+        ]);
+        File::delete(public_path("files/".$vid_name));
+    }
     function file_get_contents_curl($url)
     {
         $ch = curl_init();

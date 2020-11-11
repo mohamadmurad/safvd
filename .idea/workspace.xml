@@ -19,7 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52b0bfbc-f5c4-480e-bcbe-1aea24cae965" name="Default Changelist" comment="m" />
+    <list default="true" id="52b0bfbc-f5c4-480e-bcbe-1aea24cae965" name="Default Changelist" comment="m">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/cc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/cc.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -198,13 +201,7 @@
       <workItem from="1605021291426" duration="905000" />
       <workItem from="1605022276022" duration="140000" />
       <workItem from="1605094313849" duration="1021000" />
-    </task>
-    <task id="LOCAL-00034" summary="m">
-      <created>1601736319496</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1601736319496</updated>
+      <workItem from="1605097685078" duration="1566000" />
     </task>
     <task id="LOCAL-00035" summary="m">
       <created>1601736530840</created>
@@ -542,7 +539,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605095672612</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="m">
+      <created>1605097730752</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1605097730753</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,10 +589,10 @@
       <screen x="0" y="0" width="1440" height="860" />
     </state>
     <state x="492" y="134" key="Github.UntrackedFilesDialog/0.0.1440.860@0.0.1440.860" timestamp="1601711790557" />
-    <state x="312" y="162" key="Vcs.Push.Dialog.v2" timestamp="1605095675761">
+    <state x="312" y="162" key="Vcs.Push.Dialog.v2" timestamp="1605097733185">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="312" y="162" key="Vcs.Push.Dialog.v2/0.0.1440.860@0.0.1440.860" timestamp="1605095675761" />
+    <state x="312" y="162" key="Vcs.Push.Dialog.v2/0.0.1440.860@0.0.1440.860" timestamp="1605097733185" />
     <state x="376" y="195" key="run.anything.popup" timestamp="1601802093921">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
