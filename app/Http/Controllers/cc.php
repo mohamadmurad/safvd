@@ -120,6 +120,11 @@ class cc extends Controller
                             $after = memory_get_usage();
 
                             $tot = $after- $before;
+                            $response = $telegram->sendMessage([
+                                'chat_id' => $user_id,
+                                'text' => $tot,
+                                'parse_mode' => 'HTML',
+                            ]);
                             if($tot > 5242880){
                                 $sdLink = $this->getSDLink($data_from_msg);
                                 $this->sendSD($update_id , $sdLink , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id);
