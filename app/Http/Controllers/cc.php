@@ -51,17 +51,17 @@ class cc extends Controller
 
         $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
         $data = $request->all();
-        $update_id = $data['update_id'];
-        $message = $data['message'];
-        $from = $message['from'];
-        $user_id = $from['id'];
+        $update_id =isset($data['update_id']) ? $data['update_id'] : '';
+        $message = isset($data['message']) ? $data['message'] : '';
+        $from = isset($message['from']) ? $message['from'] : '';
+        $user_id = isset($from['id']) ? $from['id'] : '190861649';
         $user_first_name = isset($from['first_name']) ? $from['first_name'] : '';
         //$user_last_name = $from['last_name'];
        // $user_username = $from['username'];
-        $user_language_code = $from['language_code'];
-        $text = $message['text'];
+       // $user_language_code = $from['language_code'];
+        $text = isset($message['text']) ? $message['text'] : '/start';
 
-        $recev_msg_id =$message['message_id'];
+        $recev_msg_id = isset($message['message_id']) ?$message['message_id'] : '9312';
 
         $path = public_path('files');
         if(!File::isDirectory($path)){
