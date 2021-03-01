@@ -478,7 +478,7 @@ class cc extends Controller
     {
 
 
-        $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendVideo?chat_id=" . $chat_id . "&video=" . $url . "&caption=" . $caption
+        $send_url = "https://api.telegram.org/bot" . env('tokenApi') . "/sendVideo?chat_id=" . $chat_id . "&video=" . $url . "&caption=" . $caption
             . "&parse_mode=html" . "&reply_to_message_id=" . $msg_url;
 
 
@@ -491,7 +491,7 @@ class cc extends Controller
     {
 
 
-        $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/sendMessage?chat_id=" . $chat_id
+        $send_url = "https://api.telegram.org/bot" . env('tokenApi') . "/sendMessage?chat_id=" . $chat_id
             . "&text=" . urlencode($msg) . "&parse_mode=html ";
 
 
@@ -507,7 +507,7 @@ class cc extends Controller
     {
 
 
-        $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/editMessageText?chat_id=" . $chat_id .
+        $send_url = "https://api.telegram.org/bot" . env('tokenApi') . "/editMessageText?chat_id=" . $chat_id .
             "&message_id=" . $msg_id . "&parse_mode=HTML" . "&text=" . $txt;
 
 
@@ -520,7 +520,7 @@ class cc extends Controller
     {
 
 
-        $send_url = "https://api.telegram.org/bot939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/deleteMessage?chat_id=" . $chat_id . "&message_id=" . $msg_id . "&parse_mode=HTML";
+        $send_url = "https://api.telegram.org/bot" . env('tokenApi') . "/deleteMessage?chat_id=" . $chat_id . "&message_id=" . $msg_id . "&parse_mode=HTML";
 
 
         $result = file_get_contents($send_url);

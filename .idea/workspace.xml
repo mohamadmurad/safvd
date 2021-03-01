@@ -202,14 +202,7 @@
       <workItem from="1605022276022" duration="140000" />
       <workItem from="1605094313849" duration="1021000" />
       <workItem from="1605097685078" duration="2466000" />
-      <workItem from="1614601763099" duration="780000" />
-    </task>
-    <task id="LOCAL-00038" summary="m">
-      <created>1601798591586</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1601798591586</updated>
+      <workItem from="1614601763099" duration="1088000" />
     </task>
     <task id="LOCAL-00039" summary="m">
       <created>1601798882156</created>
@@ -547,7 +540,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614602444718</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="m">
+      <created>1614602555744</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1614602555744</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,35 +568,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="m" />
     <option name="LAST_COMMIT_MESSAGE" value="m" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="724" y="339" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601804878380">
-      <screen x="0" y="0" width="1440" height="860" />
-    </state>
-    <state x="724" y="339" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.860@0.0.1440.860" timestamp="1601804878380" />
-    <state x="450" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1601898339769">
-      <screen x="0" y="0" width="1440" height="860" />
-    </state>
-    <state x="450" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1440.860@0.0.1440.860" timestamp="1601898339769" />
-    <state x="500" y="184" key="FileChooserDialogImpl" timestamp="1601731925546">
-      <screen x="0" y="0" width="1440" height="860" />
-    </state>
-    <state x="500" y="184" key="FileChooserDialogImpl/0.0.1440.860@0.0.1440.860" timestamp="1601731925546" />
-    <state x="641" y="158" key="Github.ShareDialog" timestamp="1601711781996">
-      <screen x="0" y="0" width="1440" height="860" />
-    </state>
-    <state x="641" y="158" key="Github.ShareDialog/0.0.1440.860@0.0.1440.860" timestamp="1601711781996" />
-    <state x="492" y="134" key="Github.UntrackedFilesDialog" timestamp="1601711790557">
-      <screen x="0" y="0" width="1440" height="860" />
-    </state>
-    <state x="492" y="134" key="Github.UntrackedFilesDialog/0.0.1440.860@0.0.1440.860" timestamp="1601711790557" />
-    <state x="312" y="162" key="Vcs.Push.Dialog.v2" timestamp="1605099437453">
-      <screen x="0" y="0" width="1440" height="860" />
-    </state>
-    <state x="312" y="162" key="Vcs.Push.Dialog.v2/0.0.1440.860@0.0.1440.860" timestamp="1605099437453" />
-    <state x="376" y="195" key="run.anything.popup" timestamp="1601802093921">
-      <screen x="0" y="0" width="1440" height="860" />
-    </state>
-    <state x="376" y="195" key="run.anything.popup/0.0.1440.860@0.0.1440.860" timestamp="1601802093921" />
   </component>
 </project>
