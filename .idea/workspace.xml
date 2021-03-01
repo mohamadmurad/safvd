@@ -20,9 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52b0bfbc-f5c4-480e-bcbe-1aea24cae965" name="Default Changelist" comment="m">
-      <change beforePath="$PROJECT_DIR$/.idea/safvd.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/safvd.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/cc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/cc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,14 +202,7 @@
       <workItem from="1605022276022" duration="140000" />
       <workItem from="1605094313849" duration="1021000" />
       <workItem from="1605097685078" duration="2466000" />
-      <workItem from="1614601763099" duration="477000" />
-    </task>
-    <task id="LOCAL-00037" summary="m">
-      <created>1601798349602</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1601798349602</updated>
+      <workItem from="1614601763099" duration="780000" />
     </task>
     <task id="LOCAL-00038" summary="m">
       <created>1601798591586</created>
@@ -549,7 +540,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605099434430</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="m">
+      <created>1614602444717</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1614602444718</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

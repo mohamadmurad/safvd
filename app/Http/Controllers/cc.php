@@ -49,7 +49,7 @@ class cc extends Controller
     function recive(Request $request)
     {
 
-        $telegram = new Api('939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU');
+        $telegram = new Api(env('tokenApi'));
         $data = $request->all();
         $update_id =isset($data['update_id']) ? $data['update_id'] : '';
         $message = isset($data['message']) ? $data['message'] : '';
