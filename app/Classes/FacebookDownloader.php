@@ -15,7 +15,7 @@ class FacebookDownloader
         ];
         $context = stream_context_create($context);
         $this->data = file_get_contents($url, false, $context);
-        if ($this->sd_finallink($this->data) == ''){
+        if ($this->sd_finallink($this->data) == '' && $this->hd_finallink($this->data) == '' ){
             return false;
         }
         return array(
