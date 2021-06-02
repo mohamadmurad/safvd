@@ -102,7 +102,7 @@ class cc extends Controller
 
                         $downloader = new FacebookDownloader();
                         $videoData = $downloader->getVideoInfo($messageText);
-                        if($videoData != false){
+                     //   if($videoData != false){
 
 
                             $response = $telegram->sendMessage([
@@ -110,8 +110,8 @@ class cc extends Controller
                                 'text' => $videoData['hd_download_url'],
                                 'parse_mode' => 'HTML',
                             ]);
-
-                        }
+//
+                     //   }
                         if ($hdLink = $this->hdLink($data_from_msg)){
 
 
