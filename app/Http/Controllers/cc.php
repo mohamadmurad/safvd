@@ -182,15 +182,22 @@ class cc extends Controller
     }
 
     function sendSD($update_id , $sdLink , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id){
-        set_time_limit(0);
-        $vid_data = $this->file_get_contents_curl($sdLink);
-        $vid_name = $update_id.  rand() . ".mp4";
 
-        $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>SD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => 'enter',
+            'parse_mode' => 'HTML',
+        ]);
+
+        set_time_limit(0);
+     //   $vid_data = $this->file_get_contents_curl($sdLink);
+      //  $vid_name = $update_id.  rand() . ".mp4";
+
+     //   $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>SD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
 
 
         //dd($path);
-        file_put_contents( "files/".$vid_name, $vid_data );
+      //  file_put_contents( "files/".$vid_name, $vid_data );
 
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
@@ -261,7 +268,7 @@ class cc extends Controller
             'message_id' => $response->getMessageId(),
         ]);
 
-        $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
+    //    $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
 
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
