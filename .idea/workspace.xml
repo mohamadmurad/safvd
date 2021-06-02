@@ -20,6 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52b0bfbc-f5c4-480e-bcbe-1aea24cae965" name="Default Changelist" comment="m">
+      <change afterPath="$PROJECT_DIR$/app/Classes/FacebookDownloader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/cc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/cc.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -203,14 +205,7 @@
       <workItem from="1605094313849" duration="1021000" />
       <workItem from="1605097685078" duration="2466000" />
       <workItem from="1614601763099" duration="1088000" />
-      <workItem from="1622612825353" duration="74000" />
-    </task>
-    <task id="LOCAL-00039" summary="m">
-      <created>1601798882156</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1601798882156</updated>
+      <workItem from="1622612825353" duration="2543000" />
     </task>
     <task id="LOCAL-00040" summary="m">
       <created>1601799128961</created>
@@ -548,7 +543,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614602555744</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="m">
+      <created>1622613202707</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1622613202707</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

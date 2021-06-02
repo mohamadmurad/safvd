@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\FacebookDownloader;
 use App\Models\User;
 use http\Exception;
 use Illuminate\Http\Request;
@@ -99,8 +100,18 @@ class cc extends Controller
                         $context = stream_context_create($this->context);
                         $data_from_msg = file_get_contents($messageText, false, $context);
 
+                        $downloader = new FacebookDownloader();
+                        $videoData = $downloader->getVideoInfo($messageText);
+                        if($videoData != false){
 
 
+                            $response = $telegram->sendMessage([
+                                'chat_id' => $user_id,
+                                'text' => $videoData,
+                                'parse_mode' => 'HTML',
+                            ]);
+
+                        }
                         if ($hdLink = $this->hdLink($data_from_msg)){
 
 
