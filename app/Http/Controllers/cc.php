@@ -27,15 +27,15 @@ class cc extends Controller
     function sendToAll(Request $request){
         $message = "<b>هذه الرسالة من مطور البوت</b> \n";
         $message .= $request->get('message');
-        $telegram = new Api(env('tokenApi'));
-        $users = User::all();
+    //    $telegram = new Api(env('tokenApi'));
+       /* $users = User::all();
         foreach ($users as $user){
             $response = $telegram->sendMessage([
                 'chat_id' => $user->user_id,
                 'text' => $message,
                 'parse_mode' => 'HTML',
             ]);
-        }
+        }*/
 
     }
 
@@ -101,7 +101,7 @@ class cc extends Controller
 
 
 
-                        if ($hdLink = $this->getHDLink($data_from_msg)){
+                        if ($hdLink = $this->hdLink($data_from_msg)){
 
 
 
@@ -127,7 +127,7 @@ class cc extends Controller
 
 
 
-                        }else  if ($sdLink = $this->getSDLink($data_from_msg)) {
+                        }else  if ($sdLink = $this->sdLink($data_from_msg)) {
 
                             $this->sendSD($update_id , $sdLink , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id);
 
@@ -411,6 +411,25 @@ class cc extends Controller
 
         }
 
+    }
+
+    function sdLink($curl_content)
+    {
+        $regex = '/sd_src:"([^"]+)"/';
+        if (preg_match($regex, $curl_content, $match1)) {
+            return $match1[1];
+        } else {
+            return;
+        }
+    }
+    function hdLink($curl_content)
+    {
+        $regex = '/hd_src:"([^"]+)"/';
+        if (preg_match($regex, $curl_content, $match)) {
+            return $match[1];
+        } else {
+            return;
+        }
     }
 
     function getHDLink($curl_content)
