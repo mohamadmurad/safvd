@@ -104,10 +104,10 @@ class cc extends Controller
                         $videoData = $downloader->getVideoInfo($messageText);
                      //   if($videoData != false){
 
-
+                        $this->sendSD($update_id , $videoData['sd_download_url'] , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id);
                             $response = $telegram->sendMessage([
                                 'chat_id' => $user_id,
-                                'text' => $videoData['sd_download_url'],
+                                'text' => $videoData['title'],
                                 'parse_mode' => 'HTML',
                             ]);
 //
