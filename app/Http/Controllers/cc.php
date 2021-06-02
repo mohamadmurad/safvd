@@ -107,7 +107,7 @@ class cc extends Controller
 
                             $response = $telegram->sendMessage([
                                 'chat_id' => $user_id,
-                                'text' => $videoData,
+                                'text' => $videoData['hd_download_url'],
                                 'parse_mode' => 'HTML',
                             ]);
 
