@@ -87,11 +87,7 @@ class cc extends Controller
         $text = isset($message['text']) ? $message['text'] : '/start';
         Log::info('end');
         $recev_msg_id = isset($message['message_id']) ? $message['message_id'] : '9312';
-        $response = $telegram->sendMessage([
-            'chat_id' => $user_id,
-            'text' => 'هذا البوت مخصص لتحميل فديوهات الفيسبوك فقط ولا يدعم الدردشة',
-            'parse_mode' => 'HTML',
-        ]);
+
         $path = public_path('files');
         if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
@@ -131,7 +127,11 @@ class cc extends Controller
                         $downloader = new FacebookDownloader();
                         $videoData = $downloader->getVideoInfo($messageText);
                         //   if($videoData != false){
-
+                        $response = $telegram->sendMessage([
+                            'chat_id' => $user_id,
+                            'text' => $videoData,
+                            'parse_mode' => 'HTML',
+                        ]);
                         $this->sendSD($update_id, $videoData['sd_download_url'], $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
                         $response = $telegram->sendMessage([
                             'chat_id' => $user_id,
