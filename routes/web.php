@@ -23,7 +23,7 @@ Route::get('/c', function () {
     return 'dd';
 });
 
-
+Route::post('webhook',[\App\Http\Controllers\cc::class,'recive']);
 Route::post('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook',[\App\Http\Controllers\cc::class,'recive']);
 
 Route::post('/sendToAll',[\App\Http\Controllers\cc::class,'sendToAll']);
