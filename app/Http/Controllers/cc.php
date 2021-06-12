@@ -124,22 +124,18 @@ class cc extends Controller
                         $context = stream_context_create($this->context);
                         $data_from_msg = file_get_contents($messageText, false, $context);
 
-                        $downloader = new FacebookDownloader();
+                      /*  $downloader = new FacebookDownloader();
                         $videoData = $downloader->getVideoInfo($messageText);
-                        //   if($videoData != false){
-                        $response = $telegram->sendMessage([
-                            'chat_id' => $user_id,
-                            'text' => $videoData,
-                            'parse_mode' => 'HTML',
-                        ]);
-                        $this->sendSD($update_id, $videoData['sd_download_url'], $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
-                        $response = $telegram->sendMessage([
-                            'chat_id' => $user_id,
-                            'text' => $videoData['title'],
-                            'parse_mode' => 'HTML',
-                        ]);
+                        if ($videoData != false) {
+
+                            $this->sendSD($update_id, $videoData['sd_download_url'], $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
+                            $response = $telegram->sendMessage([
+                                'chat_id' => $user_id,
+                                'text' => $videoData['title'],
+                                'parse_mode' => 'HTML',
+                            ]);
 //
-                        //   }
+                        }*/
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
 
