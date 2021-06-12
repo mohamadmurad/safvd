@@ -123,7 +123,7 @@ class cc extends Controller
 
                         $context = stream_context_create($this->context);
                         $data_from_msg = file_get_contents($messageText, false, $context);
-
+                        Log::info($data_from_msg);
                       /*  $downloader = new FacebookDownloader();
                         $videoData = $downloader->getVideoInfo($messageText);
                         if ($videoData != false) {
@@ -136,11 +136,7 @@ class cc extends Controller
                             ]);
 //
                         }*/
-                        $response = $telegram->sendMessage([
-                            'chat_id' => $user_id,
-                            'text' => $this->hdLink($data_from_msg),
-                            'parse_mode' => 'HTML',
-                        ]);
+
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
 
