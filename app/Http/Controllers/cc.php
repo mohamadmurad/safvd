@@ -63,7 +63,11 @@ class cc extends Controller
         $text = isset($message['text']) ? $message['text'] : '/start';
 
         $recev_msg_id = isset($message['message_id']) ?$message['message_id'] : '9312';
-
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => 'هذا البوت مخصص لتحميل فديوهات الفيسبوك فقط ولا يدعم الدردشة',
+            'parse_mode' => 'HTML',
+        ]);
         $path = public_path('files');
         if(!File::isDirectory($path)){
             File::makeDirectory($path, 0777, true, true);
