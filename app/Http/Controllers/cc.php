@@ -7,6 +7,7 @@ use App\Models\User;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 
 
@@ -72,7 +73,7 @@ class cc extends Controller
     function recive(Request $request)
     {
 
-
+        Log::info('start');
         $telegram = new Api(env('tokenApi'));
         $data = $request->all();
         $update_id = isset($data['update_id']) ? $data['update_id'] : '';
@@ -84,7 +85,7 @@ class cc extends Controller
         // $user_username = $from['username'];
         // $user_language_code = $from['language_code'];
         $text = isset($message['text']) ? $message['text'] : '/start';
-
+        Log::info('end');
         $recev_msg_id = isset($message['message_id']) ? $message['message_id'] : '9312';
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
