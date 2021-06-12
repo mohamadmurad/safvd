@@ -29,7 +29,7 @@ Route::post('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook',[\App\Http\
 Route::post('/sendToAll',[\App\Http\Controllers\cc::class,'sendToAll']);
 
 Route::get('/getAll',[\App\Http\Controllers\cc::class,'getAll']);
-Route::get('/log',[\App\Http\Controllers\cc::class,'log']);
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::get('/939919494:AAHHzgqUYKZ5STaV6nI0kFjhkO4mJw2ZvjU/webhook', function (Request $request) {
   //  $updates = Telegram::getWebhookUpdates();
