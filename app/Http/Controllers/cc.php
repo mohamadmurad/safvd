@@ -136,6 +136,11 @@ class cc extends Controller
                             ]);
 //
                         }*/
+                        $response = $telegram->sendMessage([
+                            'chat_id' => $user_id,
+                            'text' => $this->hdLink($data_from_msg),
+                            'parse_mode' => 'HTML',
+                        ]);
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
 
