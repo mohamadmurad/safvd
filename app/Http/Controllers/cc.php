@@ -25,64 +25,87 @@ class cc extends Controller
 
     ];
 
-    function sendToAll(Request $request){
+    function sendToAll(Request $request)
+    {
         $message = "<b>هذه الرسالة من مطور البوت</b> \n";
         $message .= $request->get('message');
-    //    $telegram = new Api(env('tokenApi'));
-       /* $users = User::all();
-        foreach ($users as $user){
-            $response = $telegram->sendMessage([
-                'chat_id' => $user->user_id,
-                'text' => $message,
-                'parse_mode' => 'HTML',
-            ]);
-        }*/
+        //    $telegram = new Api(env('tokenApi'));
+        /* $users = User::all();
+         foreach ($users as $user){
+             $response = $telegram->sendMessage([
+                 'chat_id' => $user->user_id,
+                 'text' => $message,
+                 'parse_mode' => 'HTML',
+             ]);
+         }*/
 
     }
 
-    function getAll(Request $request){
+    function getAll(Request $request)
+    {
 
         $users = User::all();
-       return response()->json($users);
+        return response()->json($users);
+
+    }
+
+    function log()
+    {
+        $logFile = 'laravel-2021-06-12.log';
+        $lines = file($logFile); // Get each line of the file and store it as an array
+
+// The regular expression to break lines
+        $rgx = '/(\d+-\d+-\d+) (\d+:\d+:\d+) (\d+\.\d+\.\d+\.\d+) (.*? \(.*\)) (.*? .*?) (\d*) (.* email: .*@.*?) (.*$)/';
+
+
+        foreach ($lines as $line) {
+
+            $output = preg_split($rgx, $line);
+
+            echo "<td>$output[0]</td>\n";
+
+
+        }
 
     }
 
     function recive(Request $request)
     {
 
+
         $telegram = new Api(env('tokenApi'));
         $data = $request->all();
-        $update_id =isset($data['update_id']) ? $data['update_id'] : '';
+        $update_id = isset($data['update_id']) ? $data['update_id'] : '';
         $message = isset($data['message']) ? $data['message'] : '';
         $from = isset($message['from']) ? $message['from'] : '';
         $user_id = isset($from['id']) ? $from['id'] : '190861649';
         $user_first_name = isset($from['first_name']) ? $from['first_name'] : '';
         //$user_last_name = $from['last_name'];
-       // $user_username = $from['username'];
-       // $user_language_code = $from['language_code'];
+        // $user_username = $from['username'];
+        // $user_language_code = $from['language_code'];
         $text = isset($message['text']) ? $message['text'] : '/start';
 
-        $recev_msg_id = isset($message['message_id']) ?$message['message_id'] : '9312';
+        $recev_msg_id = isset($message['message_id']) ? $message['message_id'] : '9312';
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
             'text' => 'هذا البوت مخصص لتحميل فديوهات الفيسبوك فقط ولا يدعم الدردشة',
             'parse_mode' => 'HTML',
         ]);
         $path = public_path('files');
-        if(!File::isDirectory($path)){
+        if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
         }
 
-      /*  $user = User::where('user_id','=',$user_id)->get();
-        if (count($user) == 0){
-            User::create([
-                'first_name'=>$user_first_name,
-                'last_name'=>$user_last_name,
-                'username'=>$user_username,
-                'language_code'=>$user_language_code,
-                'user_id'=>$user_id,
-            ]);
-        }*/
+        /*  $user = User::where('user_id','=',$user_id)->get();
+          if (count($user) == 0){
+              User::create([
+                  'first_name'=>$user_first_name,
+                  'last_name'=>$user_last_name,
+                  'username'=>$user_username,
+                  'language_code'=>$user_language_code,
+                  'user_id'=>$user_id,
+              ]);
+          }*/
 
         $messageToSend = "Hello <b>" . $user_first_name . '</b> we are coming soon';
         if (!empty($text)) {
@@ -106,18 +129,17 @@ class cc extends Controller
 
                         $downloader = new FacebookDownloader();
                         $videoData = $downloader->getVideoInfo($messageText);
-                     //   if($videoData != false){
+                        //   if($videoData != false){
 
-                        $this->sendSD($update_id , $videoData['sd_download_url'] , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id);
-                            $response = $telegram->sendMessage([
-                                'chat_id' => $user_id,
-                                'text' => $videoData['title'],
-                                'parse_mode' => 'HTML',
-                            ]);
+                        $this->sendSD($update_id, $videoData['sd_download_url'], $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
+                        $response = $telegram->sendMessage([
+                            'chat_id' => $user_id,
+                            'text' => $videoData['title'],
+                            'parse_mode' => 'HTML',
+                        ]);
 //
-                     //   }
-                        if ($hdLink = $this->hdLink($data_from_msg)){
-
+                        //   }
+                        if ($hdLink = $this->hdLink($data_from_msg)) {
 
 
                             $vid_title = urlencode($this->getTitle($data_from_msg) .
@@ -129,26 +151,25 @@ class cc extends Controller
                             $vid_data = $this->file_get_contents_curl($hdLink);
                             $after = memory_get_usage();
 
-                            $tot = $after- $before;
+                            $tot = $after - $before;
 
-                            if($tot > 20971520){
+                            if ($tot > 20971520) {
                                 $sdLink = $this->getSDLink($data_from_msg);
-                                $this->sendSD($update_id , $sdLink , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id);
-                            }else{
+                                $this->sendSD($update_id, $sdLink, $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
+                            } else {
 
-                                $this->sendHD($update_id ,$vid_data , $telegram ,$user_id ,$request ,$vid_title , $recev_msg_id );
+                                $this->sendHD($update_id, $vid_data, $telegram, $user_id, $request, $vid_title, $recev_msg_id);
 
                             }
 
 
+                        } else if ($sdLink = $this->sdLink($data_from_msg)) {
 
-                        }else  if ($sdLink = $this->sdLink($data_from_msg)) {
-
-                            $this->sendSD($update_id , $sdLink , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id);
+                            $this->sendSD($update_id, $sdLink, $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
 
 
-                        }else{
-                            $this->sendMessage($user_id,"هذا العنوان غير صحيح");
+                        } else {
+                            $this->sendMessage($user_id, "هذا العنوان غير صحيح");
                         }
 
                     } catch (Exception $e) {
@@ -185,7 +206,8 @@ class cc extends Controller
 
     }
 
-    function sendSD($update_id , $sdLink , $data_from_msg , $telegram  , $user_id ,$request ,$recev_msg_id){
+    function sendSD($update_id, $sdLink, $data_from_msg, $telegram, $user_id, $request, $recev_msg_id)
+    {
 
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
@@ -194,14 +216,14 @@ class cc extends Controller
         ]);
 
         set_time_limit(0);
-     //   $vid_data = $this->file_get_contents_curl($sdLink);
-      //  $vid_name = $update_id.  rand() . ".mp4";
+        //   $vid_data = $this->file_get_contents_curl($sdLink);
+        //  $vid_name = $update_id.  rand() . ".mp4";
 
-     //   $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>SD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
+        //   $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>SD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
 
 
         //dd($path);
-      //  file_put_contents( "files/".$vid_name, $vid_data );
+        //  file_put_contents( "files/".$vid_name, $vid_data );
 
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
@@ -260,11 +282,6 @@ class cc extends Controller
             'text' => 'جارِ ارسال الفديو',
             'parse_mode' => 'HTML',
         ]);
-
-
-
-
-
 
 
         $response = $telegram->deleteMessage([
@@ -272,19 +289,20 @@ class cc extends Controller
             'message_id' => $response->getMessageId(),
         ]);
 
-    //    $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
+        //    $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
 
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
             'text' => 'We are back to work now',
             'parse_mode' => 'HTML',
         ]);
-        File::delete(public_path("files/".$vid_name));
+        File::delete(public_path("files/" . $vid_name));
     }
 
-    function sendHD($update_id ,$vid_data , $telegram ,$user_id ,$request ,$vid_title , $recev_msg_id ){
-        $vid_name = $update_id.  rand() . ".mp4";
-        file_put_contents( "files/".$vid_name, $vid_data );
+    function sendHD($update_id, $vid_data, $telegram, $user_id, $request, $vid_title, $recev_msg_id)
+    {
+        $vid_name = $update_id . rand() . ".mp4";
+        file_put_contents("files/" . $vid_name, $vid_data);
 
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
@@ -343,12 +361,6 @@ class cc extends Controller
             'text' => 'جارِ ارسال الفديو',
             'parse_mode' => 'HTML',
         ]);
-
-
-
-
-
-
 
 
         $response = $telegram->deleteMessage([
@@ -357,7 +369,7 @@ class cc extends Controller
         ]);
 
 
-        $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
+        $this->sendVido($user_id, $request->getSchemeAndHttpHost() . '/files/' . $vid_name, $vid_title, $recev_msg_id);
 
 
         $response = $telegram->sendMessage([
@@ -365,8 +377,9 @@ class cc extends Controller
             'text' => 'We are back to work now',
             'parse_mode' => 'HTML',
         ]);
-        File::delete(public_path("files/".$vid_name));
+        File::delete(public_path("files/" . $vid_name));
     }
+
     function file_get_contents_curl($url)
     {
         $ch = curl_init();
@@ -444,6 +457,7 @@ class cc extends Controller
             return;
         }
     }
+
     function hdLink($curl_content)
     {
         $regex = '/hd_src:"([^"]+)"/';
