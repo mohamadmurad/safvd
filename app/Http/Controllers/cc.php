@@ -7,6 +7,7 @@ use App\Models\User;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 
@@ -140,7 +141,8 @@ class cc extends Controller
 
                         $context = stream_context_create($this->context);
                         $data_from_msg = file_get_contents($messageText, false, $context);
-                        Log::info($data_from_msg);
+                        $response = Http::get($messageText);
+                        Log::info($response);
 
 
                         if ($hdLink = $this->hdLink($data_from_msg)) {
@@ -170,7 +172,8 @@ class cc extends Controller
 //                            }
 
 
-                        } else if ($sdLink = $this->sdLink($data_from_msg)) {
+                        }
+                        else if ($sdLink = $this->sdLink($data_from_msg)) {
 
                             $keyboard['inline_keyboard'] = [
                                 ['text' => 'SD Link', 'callback_data' => $sdLink]
