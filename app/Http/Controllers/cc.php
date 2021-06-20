@@ -148,8 +148,10 @@ class cc extends Controller
                         ]);
                         Log::info($response);
 
+                        $link = $this->getSDLink($response);
+                        Log::error($link);
+                        $this->sendSD($update_id,$link,$telegram,$user_id,$request,$recev_msg_id);
 
-                        Log::error($this->getSDLink($response));
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
                             $keyboard['inline_keyboard'] = [
