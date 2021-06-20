@@ -396,7 +396,7 @@ class cc extends Controller
         $ss1 =  substr($curl_content,$fpos+13);
 
         $tpos = strpos($curl_content,'type="video/mp4"');
-
+        return $tpos;
         $ss2 =  substr($ss1,0,$tpos-1);
 
         return $ss2;
