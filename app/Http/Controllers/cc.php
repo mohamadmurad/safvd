@@ -88,6 +88,28 @@ class cc extends Controller
         Log::info('end');
         $recev_msg_id = isset($message['message_id']) ? $message['message_id'] : '9312';
 
+
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => 'forward me to groups', 'callback_data' => 'someString']
+                ]
+            ]
+        ];
+        $encodedKeyboard = json_encode($keyboard);
+        $parameters =
+            array(
+                'chat_id' => $user_id,
+                'text' => "test",
+                'reply_markup' => $encodedKeyboard
+            );
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => 'هذا البوت مخصص لتحميل فديوهات الفيسبوك فقط ولا يدعم الدردشة',
+            'parse_mode' => 'HTML',
+            'reply_markup' => $encodedKeyboard,
+        ]);
+
         $path = public_path('files');
         if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
