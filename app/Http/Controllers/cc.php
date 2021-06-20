@@ -147,8 +147,8 @@ class cc extends Controller
                         Log::info($response);
                         Log::info($this->hdLink($response));
 
-                        $homepage = file_get_contents('https://www.example.com/');
-                        $doc = new DOMDocument;
+                        $homepage = file_get_contents($messageText);
+                        $doc = new DOMDocument();
                         $doc->loadHTML($homepage);
                         $titles = $doc->getElementsByTagName('meta');
 
