@@ -87,7 +87,12 @@ class cc extends Controller
         $text = isset($message['text']) ? $message['text'] : '/start';
         Log::info('end');
         $recev_msg_id = isset($message['message_id']) ? $message['message_id'] : '9312';
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => $message,
+            'parse_mode' => 'HTML',
 
+        ]);
 
         $keyboard = [
             'inline_keyboard' => [
