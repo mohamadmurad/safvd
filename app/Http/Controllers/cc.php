@@ -90,7 +90,7 @@ class cc extends Controller
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
             'text' => $message,
-            'parse_mode' => 'HTML',
+            'parse_mode' => 'HTML'
 
         ]);
 
