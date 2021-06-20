@@ -113,7 +113,7 @@ class cc extends Controller
         if ($callback_query) {
             $response = $telegram->sendMessage([
                 'chat_id' => $user_id,
-                'text' => 'call',
+                'text' => $callback_query_data,
                 'parse_mode' => 'HTML'
             ]);
 
