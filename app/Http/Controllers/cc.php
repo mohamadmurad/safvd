@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Classes\FacebookDownloader;
 use App\Models\User;
+use DOMDocument;
+use DOMXPath;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -144,6 +146,7 @@ class cc extends Controller
                         $response = Http::get($messageText);
                         Log::info($response);
                         Log::info($this->hdLink($response));
+                        Log::info($this->_parse($response));
 
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
@@ -417,11 +420,77 @@ class cc extends Controller
     {
         $regex = '/hd_src:"([^"]+)"/';
         if (preg_match($regex, $curl_content, $match)) {
-            Log::info($match);
             return $match[1];
         } else {
             return;
         }
+    }
+
+    public function _parse($HTML) {
+        $_values = [];
+        $old_libxml_error = libxml_use_internal_errors(true);
+
+        $doc = new DOMDocument();
+        $doc->loadHTML($HTML);
+
+        libxml_use_internal_errors($old_libxml_error);
+
+        $tags = $doc->getElementsByTagName('meta');
+        if (!$tags || $tags->length === 0) {
+            return false;
+        }
+
+        $page = new self();
+
+        $nonOgDescription = null;
+
+        foreach ($tags AS $tag) {
+            if ($tag->hasAttribute('property') &&
+                strpos($tag->getAttribute('property'), 'og:') === 0) {
+                $key = strtr(substr($tag->getAttribute('property'), 3), '-', '_');
+                $_values[$key] = $tag->getAttribute('content');
+            }
+
+            //Added this if loop to retrieve description values from sites like the New York Times who have malformed it.
+            if ($tag ->hasAttribute('value') && $tag->hasAttribute('property') &&
+                strpos($tag->getAttribute('property'), 'og:') === 0) {
+                $key = strtr(substr($tag->getAttribute('property'), 3), '-', '_');
+                $_values[$key] = $tag->getAttribute('value');
+            }
+            //Based on modifications at https://github.com/bashofmann/opengraph/blob/master/src/OpenGraph/OpenGraph.php
+            if ($tag->hasAttribute('name') && $tag->getAttribute('name') === 'description') {
+                $nonOgDescription = $tag->getAttribute('content');
+            }
+
+        }
+        //Based on modifications at https://github.com/bashofmann/opengraph/blob/master/src/OpenGraph/OpenGraph.php
+        if (!isset($page->_values['title'])) {
+            $titles = $doc->getElementsByTagName('title');
+            if ($titles->length > 0) {
+               $_values['title'] = $titles->item(0)->textContent;
+            }
+        }
+        if (!isset($page->_values['description']) && $nonOgDescription) {
+            $_values['description'] = $nonOgDescription;
+        }
+
+        //Fallback to use image_src if ogp::image isn't set.
+        if (!isset($page->values['image'])) {
+            $domxpath = new DOMXPath($doc);
+            $elements = $domxpath->query("//link[@rel='image_src']");
+
+            if ($elements->length > 0) {
+                $domattr = $elements->item(0)->attributes->getNamedItem('href');
+                if ($domattr) {
+                    $_values['image'] = $domattr->value;
+                    $_values['image_src'] = $domattr->value;
+                }
+            }
+        }
+
+        if (empty($_values)) { return false; }
+
+        return $_values;
     }
 
     function getHDLink($curl_content)
