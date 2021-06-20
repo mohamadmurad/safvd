@@ -405,8 +405,15 @@ class cc extends Controller
 
         $regexSrc = '/sd_src:"([^"]+)"/';
         $regexSrc = '/source src="([^"]+)"/';
+        $fpos = strpos($curl_content,'<source src="');
 
+        $ss1 =  substr($curl_content,$fpos);
 
+        $tpos = strpos($curl_content,'" type="video/mp4">');
+
+        $ss2 =  substr($ss1,0,$tpos-1);
+
+        return $ss2;
         if (preg_match($regexRateLimit, $curl_content, $match)) {
 
             return $match[1];
