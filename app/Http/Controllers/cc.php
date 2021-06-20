@@ -89,7 +89,7 @@ class cc extends Controller
         $recev_msg_id = isset($message['message_id']) ? $message['message_id'] : '9312';
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
-            'text' => $message,
+            'text' => $text,
             'parse_mode' => 'HTML'
 
         ]);
