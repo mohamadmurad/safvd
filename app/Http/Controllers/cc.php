@@ -78,6 +78,9 @@ class cc extends Controller
         $data = $request->all();
         $update_id = isset($data['update_id']) ? $data['update_id'] : '';
         $message = isset($data['message']) ? $data['message'] : '';
+        $callback_query = isset($data['callback_query']) ? $data['callback_query'] : '';
+        $callback_query_data = isset($callback_query['data']) ? $callback_query['data'] : '';
+
         $from = isset($message['from']) ? $message['from'] : '';
         $user_id = isset($from['id']) ? $from['id'] : '190861649';
         $user_first_name = isset($from['first_name']) ? $from['first_name'] : '';
@@ -87,51 +90,37 @@ class cc extends Controller
         $text = isset($message['text']) ? $message['text'] : '/start';
         Log::info('end');
         $recev_msg_id = isset($message['message_id']) ? $message['message_id'] : '9312';
-        $response = $telegram->sendMessage([
-            'chat_id' => $user_id,
-            'text' => $text,
-            'parse_mode' => 'HTML'
 
-        ]);
 
         $keyboard = [
-            'inline_keyboard' => [
-                [
-                    ['text' => 'forward me to groups', 'callback_data' => 'someString']
-                ]
-            ]
+            'inline_keyboard' => []
         ];
-        $encodedKeyboard = json_encode($keyboard);
-        $parameters =
-            array(
-                'chat_id' => $user_id,
-                'text' => "test",
-                'reply_markup' => $encodedKeyboard
-            );
-        $response = $telegram->sendMessage([
-            'chat_id' => $user_id,
-            'text' => 'هذا البوت مخصص لتحميل فديوهات الفيسبوك فقط ولا يدعم الدردشة',
-            'parse_mode' => 'HTML',
-            'reply_markup' => $encodedKeyboard,
-        ]);
+//        $encodedKeyboard = json_encode($keyboard);
+//
+//        $response = $telegram->sendMessage([
+//            'chat_id' => $user_id,
+//            'text' => 'هذا البوت مخصص لتحميل فديوهات الفيسبوك فقط ولا يدعم الدردشة',
+//            'parse_mode' => 'HTML',
+//            'reply_markup' => $encodedKeyboard,
+//        ]);
 
         $path = public_path('files');
         if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
         }
 
-        /*  $user = User::where('user_id','=',$user_id)->get();
-          if (count($user) == 0){
-              User::create([
-                  'first_name'=>$user_first_name,
-                  'last_name'=>$user_last_name,
-                  'username'=>$user_username,
-                  'language_code'=>$user_language_code,
-                  'user_id'=>$user_id,
-              ]);
-          }*/
 
-        $messageToSend = "Hello <b>" . $user_first_name . '</b> we are coming soon';
+
+        if ($callback_query){
+            $response = $telegram->sendMessage([
+                'chat_id' => $user_id,
+                'text' => 'call',
+                'parse_mode' => 'HTML'
+            ]);
+
+            return 0;
+        }
+
         if (!empty($text)) {
             if ($text !== "/start") {
                 if (!filter_var($text, FILTER_VALIDATE_URL)) {
@@ -151,51 +140,63 @@ class cc extends Controller
                         $context = stream_context_create($this->context);
                         $data_from_msg = file_get_contents($messageText, false, $context);
                         Log::info($data_from_msg);
-                      /*  $downloader = new FacebookDownloader();
-                        $videoData = $downloader->getVideoInfo($messageText);
-                        if ($videoData != false) {
 
-                            $this->sendSD($update_id, $videoData['sd_download_url'], $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
-                            $response = $telegram->sendMessage([
-                                'chat_id' => $user_id,
-                                'text' => $videoData['title'],
-                                'parse_mode' => 'HTML',
-                            ]);
-//
-                        }*/
 
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
+                            $keyboard['inline_keyboard'] =  [
+                                ['text' => 'HD Link', 'callback_data' => $hdLink]
+                            ];
 
-                            $vid_title = urlencode($this->getTitle($data_from_msg) .
-                                "\n\n<b>HD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
+//                            $vid_title = urlencode($this->getTitle($data_from_msg) .
+//                                "\n\n<b>HD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
+//
+//
+//                            set_time_limit(0);
+//                            $before = memory_get_usage();
+//                            $vid_data = $this->file_get_contents_curl($hdLink);
+//                            $after = memory_get_usage();
+//
+//                            $tot = $after - $before;
+//
+//                            if ($tot > 20971520) {
+//                                $sdLink = $this->getSDLink($data_from_msg);
+//                                $this->sendSD($update_id, $sdLink, $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
+//                            } else {
+//
+//                                $this->sendHD($update_id, $vid_data, $telegram, $user_id, $request, $vid_title, $recev_msg_id);
+//
+//                            }
 
 
-                            set_time_limit(0);
-                            $before = memory_get_usage();
-                            $vid_data = $this->file_get_contents_curl($hdLink);
-                            $after = memory_get_usage();
+                        }
+                        else if ($sdLink = $this->sdLink($data_from_msg)) {
 
-                            $tot = $after - $before;
+                            $keyboard['inline_keyboard'] =  [
+                                ['text' => 'SD Link', 'callback_data' => $sdLink]
+                            ];
 
-                            if ($tot > 20971520) {
-                                $sdLink = $this->getSDLink($data_from_msg);
-                                $this->sendSD($update_id, $sdLink, $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
-                            } else {
-
-                                $this->sendHD($update_id, $vid_data, $telegram, $user_id, $request, $vid_title, $recev_msg_id);
-
-                            }
-
-
-                        } else if ($sdLink = $this->sdLink($data_from_msg)) {
-
-                            $this->sendSD($update_id, $sdLink, $data_from_msg, $telegram, $user_id, $request, $recev_msg_id);
+//                            if ($callback_query_data && $callback_query){
+//                                $this->sendSD($update_id, $callback_query_data, '', $telegram, $user_id, $request, $recev_msg_id);
+//
+//                            }
 
 
                         } else {
                             $this->sendMessage($user_id, "هذا العنوان غير صحيح");
+                            return 0;
                         }
+
+        $encodedKeyboard = json_encode($keyboard);
+
+        $response = $telegram->sendMessage([
+            'chat_id' => $user_id,
+            'text' => 'الرجاء اختيار الدقة',
+            'parse_mode' => 'HTML',
+            'reply_markup' => $encodedKeyboard,
+        ]);
+
+        return  0;
 
                     } catch (Exception $e) {
                         echo $e->getMessage();
@@ -241,10 +242,10 @@ class cc extends Controller
         ]);
 
         set_time_limit(0);
-        //   $vid_data = $this->file_get_contents_curl($sdLink);
-        //  $vid_name = $update_id.  rand() . ".mp4";
+           $vid_data = $this->file_get_contents_curl($sdLink);
+          $vid_name = $update_id.  rand() . ".mp4";
 
-        //   $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>SD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
+           $vid_title = urlencode($this->getTitle($data_from_msg) . "\n\n<b>SD</b>\n\n<b>Downloaded by Syrian Addicted bot</b> \n\n @syrianaddicted \n\n @FVD_SA_bot");
 
 
         //dd($path);
@@ -314,7 +315,7 @@ class cc extends Controller
             'message_id' => $response->getMessageId(),
         ]);
 
-        //    $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
+            $this->sendVido($user_id,$request->getSchemeAndHttpHost() . '/files/'. $vid_name,  $vid_title,$recev_msg_id);
 
         $response = $telegram->sendMessage([
             'chat_id' => $user_id,
