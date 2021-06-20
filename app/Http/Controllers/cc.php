@@ -143,7 +143,7 @@ class cc extends Controller
                         $data_from_msg = file_get_contents($messageText, false, $context);
                         $response = Http::get($messageText);
                         Log::info($response);
-
+                        Log::info($this->hdLink($data_from_msg));
 
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
