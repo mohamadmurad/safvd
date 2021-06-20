@@ -152,7 +152,7 @@ class cc extends Controller
                         $doc->loadHTML($homepage);
                         $titles = $doc->getElementsByTagName('meta');
 
-                        Log::error($titles);
+                        Log::error($titles->item(0));
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
                             $keyboard['inline_keyboard'] = [
