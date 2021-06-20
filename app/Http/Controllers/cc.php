@@ -143,27 +143,13 @@ class cc extends Controller
 
                         $context = stream_context_create($this->context);
                         $data_from_msg = file_get_contents($messageText, false, $context);
-                        $response = Http::get($messageText);
+                        $response =  Http::post('https://www.getfvid.com/nl/downloader',[
+                            'url' => $messageText,
+                        ]);
                         Log::info($response);
-                        Log::info($this->hdLink($response));
-
-                        $homepage = file_get_contents($messageText);
-                        $doc = new DOMDocument();
-                        $doc->loadHTML($homepage);
-                        $xpath = new DOMXPath($doc);
-                        $query = '//*/meta[starts-with(@property, \'og:\')]';
-                        $metas = $xpath->query($query);
-                        $rmetas = array();
-                        foreach ($metas as $meta) {
-                            $property = $meta->getAttribute('property');
-                            $content = $meta->getAttribute('content');
-                            $rmetas[$property] = $content;
-                        }
 
 
-
-
-                        Log::error($this->getSDLink($data_from_msg));
+                        Log::error($this->getSDLink($response));
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
                             $keyboard['inline_keyboard'] = [
