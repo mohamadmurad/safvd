@@ -163,7 +163,7 @@ class cc extends Controller
 
 
 
-                        Log::error($rmetas);
+                        Log::error($this->getSDLink($data_from_msg));
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
                             $keyboard['inline_keyboard'] = [
@@ -404,6 +404,7 @@ class cc extends Controller
         $regexRateLimit = '/sd_src_no_ratelimit:"([^"]+)"/';
 
         $regexSrc = '/sd_src:"([^"]+)"/';
+        $regexSrc = '/source src="([^"]+)"/';
 
 
         if (preg_match($regexRateLimit, $curl_content, $match)) {
