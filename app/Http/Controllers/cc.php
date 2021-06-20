@@ -417,6 +417,7 @@ class cc extends Controller
     {
         $regex = '/hd_src:"([^"]+)"/';
         if (preg_match($regex, $curl_content, $match)) {
+            Log::info($match);
             return $match[1];
         } else {
             return;
