@@ -393,9 +393,9 @@ class cc extends Controller
         $regexSrc = '/source src="([^"]+)"/';
         $fpos = strpos($curl_content,'<source src="');
 
-        $ss1 =  substr($curl_content,$fpos+1);
+        $ss1 =  substr($curl_content,$fpos+13);
 
-        $tpos = strpos($curl_content,'" type="video/mp4" />');
+        $tpos = strpos($curl_content,'type="video/mp4"');
 
         $ss2 =  substr($ss1,0,$tpos-1);
 
