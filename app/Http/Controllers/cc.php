@@ -150,9 +150,20 @@ class cc extends Controller
                         $homepage = file_get_contents($messageText);
                         $doc = new DOMDocument();
                         $doc->loadHTML($homepage);
-                        $titles = $doc->getElementsByTagName('meta');
+                        $xpath = new DOMXPath($doc);
+                        $query = '//*/meta[starts-with(@property, \'og:\')]';
+                        $metas = $xpath->query($query);
+                        $rmetas = array();
+                        foreach ($metas as $meta) {
+                            $property = $meta->getAttribute('property');
+                            $content = $meta->getAttribute('content');
+                            $rmetas[$property] = $content;
+                        }
 
-                        Log::error($titles->item(0));
+
+
+
+                        Log::error($rmetas);
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
                             $keyboard['inline_keyboard'] = [
