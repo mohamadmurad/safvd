@@ -146,8 +146,13 @@ class cc extends Controller
                         $response = Http::get($messageText);
                         Log::info($response);
                         Log::info($this->hdLink($response));
-                        Log::info($this->_parse($data_from_msg));
 
+                        $homepage = file_get_contents('https://www.example.com/');
+                        $doc = new DOMDocument;
+                        $doc->loadHTML($homepage);
+                        $titles = $doc->getElementsByTagName('meta');
+
+                        Log::error($titles);
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
                             $keyboard['inline_keyboard'] = [
