@@ -125,7 +125,11 @@ class downloader
         parse_str($parts['query'], $query);
         $id = $query['v'];
 
-        return compact('title', 'description', 'owner', 'created_time', 'hd_link', 'sd_link', 'id');
+        return [
+            'hd' => $hd_link,
+            'sd' => $sd_link,
+            'title'=> $title,
+        ];
     }
 
     public function getTitle()
