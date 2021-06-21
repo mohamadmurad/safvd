@@ -15,8 +15,8 @@ use Telegram\Bot\Api;
 |
 */
 
-Route::get('/', "MainController@index");
-Route::post('download', "MainController@download");
+Route::get('/', [\App\Http\Controllers\MainController::class,'index']);
+Route::post('download', [\App\Http\Controllers\MainController::class,'download']);
 
 
 
