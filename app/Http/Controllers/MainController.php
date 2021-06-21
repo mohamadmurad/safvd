@@ -60,6 +60,8 @@ class MainController extends Controller
         }
     }
 
+
+
     public function detectWebsite($url){
         if (strpos($url, 'youtube') > 0) {
             return 'youtube';

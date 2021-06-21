@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\FacebookDownloader;
+use App\downloader;
 use App\Models\User;
 use DOMDocument;
 use DOMXPath;
@@ -154,8 +155,14 @@ class cc extends Controller
                       //  Log::error($link);
                       //  $this->sendSD($update_id,$link,$telegram,$user_id,$request,$recev_msg_id);
 
-                        $downloader = new FacebookDownloader();
+                      //  $downloader = new FacebookDownloader();
+                        $downloader = new downloader();
+                       // $videoData = $downloader->getVideoInfo($text);
                         $videoData = $downloader->getVideoInfo($text);
+
+                    Log::error($videoData);
+
+                    return null;
                         if($videoData == false){
 
                             $response = $telegram->sendMessage([
