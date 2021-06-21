@@ -144,7 +144,7 @@ class cc extends Controller
                     try {
 
                         $context = stream_context_create($this->context);
-                        $data_from_msg = file_get_contents($messageText, false, $context);
+                       // $data_from_msg = file_get_contents($messageText, false, $context);
                       /*  $response =  Http::post('https://www.getfvid.com/nl/downloader',[
                             'url' => $messageText,
                         ]);*/
