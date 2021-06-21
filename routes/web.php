@@ -15,9 +15,10 @@ use Telegram\Bot\Api;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "MainController@index");
+Route::post('download', "MainController@download");
+
+
 
 Route::get('/c', function () {
     return 'dd';
