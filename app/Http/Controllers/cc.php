@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Classes\FacebookDownloader;
-use App\downloader;
 use App\Models\User;
 use DOMDocument;
 use DOMXPath;
