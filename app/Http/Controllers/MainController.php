@@ -17,6 +17,7 @@ class MainController extends Controller
             "videourl" => 'required'
         ]);
         $url = $request->input('videourl');
+        $url = 'https://www.facebook.com/133584260669221/posts/737568603604114/?app=fbl';
         $data = [
             'url' => $url
         ];

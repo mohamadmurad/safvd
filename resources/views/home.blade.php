@@ -11,7 +11,7 @@
                 </div>
                 <br />
                 <form id="fd" action="{{ url('download') }}" method="post" >
-                    {{ csrf_field() }}
+                    @csrf
                     <div class="input-group col-md-8">
                         <input name="videourl" required class="form-control form-control-lg" placeholder="Enter Video Link..." type="text" autofocus style="height:66px;">
                         <span class="input-group-btn"><button style="height: 66px;" class="btn btn-primary input-lg g-recaptcha"><strong><i class="fa fa-cloud-download" aria-hidden="true"></i> Download</strong></button></span>
