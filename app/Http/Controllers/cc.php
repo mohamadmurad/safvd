@@ -76,7 +76,7 @@ class cc extends Controller
     function recive(Request $request)
     {
 
-        Log::info('start');
+
         $telegram = new Api(env('tokenApi'));
         $data = $request->all();
         $update_id = isset($data['update_id']) ? $data['update_id'] : '';
@@ -91,7 +91,7 @@ class cc extends Controller
         // $user_username = $from['username'];
         // $user_language_code = $from['language_code'];
         $text = isset($message['text']) ? $message['text'] : '/start';
-        Log::info('end');
+
         $recev_msg_id = isset($message['message_id']) ? $message['message_id'] : '9312';
 
 
@@ -139,18 +139,46 @@ class cc extends Controller
                     $messageText = str_replace("m.", "www.", $text);
                     $messageText = str_replace("m.", "ar-ar.", $messageText);
 
+
+
                     try {
 
-                        $context = stream_context_create($this->context);
+                    //    $context = stream_context_create($this->context);
                         $data_from_msg = file_get_contents($messageText, false, $context);
-                        $response =  Http::post('https://www.getfvid.com/nl/downloader',[
+                      /*  $response =  Http::post('https://www.getfvid.com/nl/downloader',[
                             'url' => $messageText,
-                        ]);
-                        Log::info($response);
+                        ]);*/
+                     //   Log::info($response);
 
-                        $link = $this->getSDLink($response);
-                        Log::error($link);
-                        $this->sendSD($update_id,$link,$telegram,$user_id,$request,$recev_msg_id);
+                      //  $link = $this->getSDLink($response);
+                      //  Log::error($link);
+                      //  $this->sendSD($update_id,$link,$telegram,$user_id,$request,$recev_msg_id);
+
+                        $downloader = new FacebookDownloader();
+                        $videoData = $downloader->getVideoInfo($text);
+
+                        if ($videoData['hd_download_url']){
+                            $keyboard['inline_keyboard'] = [
+                                ['text' => 'HD Link', 'callback_data' => $videoData['hd_download_url']]
+                            ];
+                        }
+                        if ($videoData['sd_download_url']){
+                            $keyboard['inline_keyboard'] = [
+                                ['text' => 'HD Link', 'callback_data' => $videoData['sd_download_url']]
+                            ];
+                        }
+
+
+                        $encodedKeyboard = json_encode($keyboard);
+
+                        $response = $telegram->sendMessage([
+                            'chat_id' => $user_id,
+                            'text' => 'الرجاء اختيار الدقة',
+                            'parse_mode' => 'HTML',
+                            'reply_markup' => $encodedKeyboard,
+                        ]);
+
+                        return 0;
 
                         if ($hdLink = $this->hdLink($data_from_msg)) {
 
