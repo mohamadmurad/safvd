@@ -156,7 +156,15 @@ class cc extends Controller
 
                         $downloader = new FacebookDownloader();
                         $videoData = $downloader->getVideoInfo($text);
+                        if($videoData == false){
 
+                            $response = $telegram->sendMessage([
+                                'chat_id' => $user_id,
+                                'text' => 'خطأ',
+                                'parse_mode' => 'HTML'
+                            ]);
+                            return 0;
+                        }
                         if ($videoData['hd_download_url']){
                             $keyboard['inline_keyboard'] = [
                                 ['text' => 'HD Link', 'callback_data' => $videoData['hd_download_url']]
